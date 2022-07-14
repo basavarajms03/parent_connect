@@ -78,7 +78,7 @@ if (isset($_POST['submit'])) {
     if ($count > 0 && $row[4] !== $_POST['facultyId']) {
 ?>
         <script>
-            alert('Faculty is already exist in the entered roll no!');
+            alert('Faculty is already exist in the entered Register Number!');
             document.location = './faculty.php';
         </script>
         <?php

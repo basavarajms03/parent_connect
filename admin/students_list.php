@@ -42,7 +42,7 @@ $seminar_hall_count = mysqli_num_rows($result);
                     <thead>
                         <tr class="bg-danger text-light">
                             <th scope="col">#</th>
-                            <th scope="col">Roll No</th>
+                            <th scope="col">Register Number</th>
                             <th scope="col">Student Id</th>
                             <th scope="col">Student Name</th>
                             <th scope="col">Semester</th>

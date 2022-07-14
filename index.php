@@ -56,5 +56,47 @@ include('./db/dbcon.php');
         </div>
     </nav>
 </body>
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="./images/1568389948615.jpg" width="100%" />
+        </div>
+        <div class="col-md-10 mt-3 text-center">
+            <h1 class="font-weight-bold text-success">T.M.A.E.S Polytechnic College</h1>
+            <h2 class="font-weight-bold text-danger">Hospet, Karnataka-583201</h2>
+        </div>
+    </div>
+    <div class="mt-3">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header font-weight-bold text-danger">Student Information</div>
+                    <div class="card-body text-center">
+                        <p>Get your student information like
+                            attendance information, Marks information by registering the student information
+                            and login using the student register number.</p>
+                        <p class="text-center">
+                            <a href="./parents" class="btn btn-danger">Read More</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header font-weight-bold text-danger">Teachers</div>
+                    <div class="card-body text-center">
+                        <p>
+                            Teachers can login using the teachers id. They can create students information
+                            like attendance, marks data. and also they can create subjects.
+                        </p>
+                        <p class="text-center">
+                            <a href="./faculty/" class="btn btn-danger">Read More</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 </html>

@@ -12,7 +12,7 @@ include('../db/dbcon.php');
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
+    <title>Student Login</title>
     <style>
         .container {
             display: flex;
@@ -29,8 +29,8 @@ include('../db/dbcon.php');
                     <p class="text-center">Student Login</p>
                 </h3>
                 <div class="form-group">
-                    <label for="studentId">Student Id</label>
-                    <input type="text" class="form-control" name="studentId" id="studentId" aria-describedby="emailHelp" placeholder="Enter Student Roll No">
+                    <label for="studentId">Student Register Number</label>
+                    <input type="text" class="form-control" name="studentId" id="studentId" aria-describedby="emailHelp" placeholder="Enter Student Register Number">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>

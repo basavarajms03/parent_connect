@@ -10,6 +10,7 @@ $subjects_two = mysqli_query($con, "SELECT * FROM `subjects` WHERE `deptId` = '$
 
 $result = mysqli_query($con, "SELECT * FROM `students_list` WHERE `roll_no` = $_GET[id]") or die(mysqli_error($con));
 $row = mysqli_fetch_array($result);
+$fPhoneNumber = $row[11];
 
 $first_internal = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
  WHERE m.`student_id` = $_GET[id] and m.`marks_type`=1 and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
@@ -215,7 +216,29 @@ if (isset($_GET['sem'])) {
             <div class="mt-3 mb-3">
                 <div class="card">
                     <p class="card-header font-weight-bold text-danger">Filter By</p>
-                    <div class="card-body font-weight-bold col-md-4">
+                    <div class="card-body col-md-4">
+                        <table cellpadding="5" class="mb-2">
+                            <tr>
+                                <td class="font-weight-bold">Name</td>
+                                <td>: </td>
+                                <td>Basavaraj</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-bold">Register Number</td>
+                                <td>: </td>
+                                <td>202</td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-bold">Semester</td>
+                                <td>: </td>
+                                <td><?php echo !isset($_GET['sem']) ? 'All' : $_GET['sem']; ?></td>
+                            </tr>
+                            <tr>
+                                <td class="font-weight-bold">Branch</td>
+                                <td>: </td>
+                                <td>Computer Science</td>
+                            </tr>
+                        </table>
                         <div class="form-group">
                             <label for="sem">Select Semester</label>
                             <select class="form-control" id="sem" name="sem" onchange="onSelectSemester(event)" required>
@@ -604,6 +627,22 @@ if (isset($_GET['sem'])) {
 
 <?php
 
+if (isset($_POST['subjectId'])) {
+    // Subject details information
+    $subject_result = mysqli_query($con, "SELECT * FROM `subjects` WHERE `subjectId`=$_POST[subjectId]") or die(mysqli_error($con));
+    $subjet_row = mysqli_fetch_array($subject_result);
+    if ($marks_type === 1) {
+        $subject_marks_type = "1st Internal";
+    } else if ($marks_type === 2) {
+        $subject_marks_type = "2nd Internal";
+    } else if ($marks_type === 3) {
+        $subject_marks_type = "3rd Internal";
+    } else {
+        $subject_marks_type = 'Final Sem';
+    }
+    // Subject details complete
+}
+
 if (isset($_POST['submit'])) {
     $deptId = $_SESSION['userData'][3];
     $subjectId = $_POST['subjectId'];
@@ -625,6 +664,24 @@ if (isset($_POST['submit'])) {
         `obtained_marks`, `student_id`, `marks_type`) 
         VALUES (NULL, '$subjectId', '$totalMarks', '$obtainedMarks', '$_GET[id]', '$marks_type')";
         if (mysqli_query($con, $insert_query)) {
+            $url = "https://api.twilio.com/2010-04-01/Accounts/ACd74689a87b8ac60065964001b26556a5/Messages.json";
+            $data = array(
+                'From' => "+19704144821",
+                'To' => "+91" . $fPhoneNumber,
+                'Body' => "$subjet_row[2]-$subject_marks_type marks has been added to the portal please login and check in the portal. Thank You!",
+            );
+            var_dump($data);
+            $post = http_build_query($data);
+            $x = curl_init($url);
+            curl_setopt($x, CURLOPT_POST, true);
+            curl_setopt($x, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($x, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($x, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+            curl_setopt($x, CURLOPT_USERPWD, "ACd74689a87b8ac60065964001b26556a5:bd670b4ac4ce566a5f15b401c93b7b3c");
+            curl_setopt($x, CURLOPT_POSTFIELDS, $post);
+            $y = curl_exec($x);
+            var_dump($y);
+            curl_close($x);
         ?>
             <script>
                 alert('Marks has been added successfully!');
@@ -663,6 +720,24 @@ if (isset($_POST['attendance_submit'])) {
         `number_of_classes`, `no_of_cls_attended`, `attendance_type`) 
         VALUES (NULL, '$subjectId','$_GET[id]','$totalClasses', '$classesAttended', '$attendance_type')";
         if (mysqli_query($con, $insert_query)) {
+            $url = "https://api.twilio.com/2010-04-01/Accounts/ACd74689a87b8ac60065964001b26556a5/Messages.json";
+            $data = array(
+                'From' => "+19704144821",
+                'To' => "+91" . $fPhoneNumber,
+                'Body' => "$subjet_row[2]-$subject_marks_type attendance has been added to the portal please login and check in the portal. Thank You!",
+            );
+            var_dump($data);
+            $post = http_build_query($data);
+            $x = curl_init($url);
+            curl_setopt($x, CURLOPT_POST, true);
+            curl_setopt($x, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($x, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($x, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+            curl_setopt($x, CURLOPT_USERPWD, "ACd74689a87b8ac60065964001b26556a5:bd670b4ac4ce566a5f15b401c93b7b3c");
+            curl_setopt($x, CURLOPT_POSTFIELDS, $post);
+            $y = curl_exec($x);
+            var_dump($y);
+            curl_close($x);
         ?>
             <script>
                 alert('Attendance has been added successfully!');

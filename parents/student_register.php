@@ -30,8 +30,8 @@ $result = mysqli_query($con, $departments_query);
             <div class="row mt-3">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="rollNo">Student Roll No</label>
-                        <input type="text" class="form-control" name="rollNo" id="rollNo" placeholder="Roll No" required>
+                        <label for="rollNo">Student Register Number</label>
+                        <input type="text" class="form-control" name="rollNo" id="rollNo" placeholder="Register Number" required>
                     </div>
                 </div>
                 <div class="col-md-4">

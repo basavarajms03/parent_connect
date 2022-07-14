@@ -39,8 +39,8 @@ $row = mysqli_fetch_array($result);
                             <div class="row mt-3">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="rollNo">Student Roll No</label>
-                                        <input type="text" value="<?php echo $row[1]; ?>" class="form-control" name="rollNo" id="rollNo" placeholder="Roll No" required>
+                                        <label for="rollNo">Student Register Number</label>
+                                        <input type="text" value="<?php echo $row[1]; ?>" class="form-control" name="rollNo" id="rollNo" placeholder="Register Number" required>
                                     </div>
                                 </div>
                             </div>

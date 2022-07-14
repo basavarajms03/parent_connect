@@ -59,7 +59,7 @@ if (isset($_POST['submit'])) {
 ?>
         <script>
             alert('Logged in successfully!');
-            document.location = 'faculty_home.php';
+            document.location = 'subjects.php';
         </script>
     <?php
     } else {
