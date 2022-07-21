@@ -47,10 +47,10 @@ include('./db/dbcon.php');
                     <a class="nav-link" href="./departments/index.php">Department Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./admin/index.php">Faculty Login</a>
+                    <a class="nav-link" href="./faculty/">Faculty Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./parents/index.php">Student/Parent Login</a>
+                    <a class="nav-link" href="./parents/">Student/Parent Login</a>
                 </li>
             </ul>
         </div>

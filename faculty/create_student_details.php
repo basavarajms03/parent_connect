@@ -8,75 +8,9 @@ $deptId = $_SESSION['userData'][3];
 $subjects = mysqli_query($con, "SELECT * FROM `subjects` WHERE `deptId` = '$deptId'") or die(mysqli_error($con));
 $subjects_two = mysqli_query($con, "SELECT * FROM `subjects` WHERE `deptId` = '$deptId'") or die(mysqli_error($con));
 
-$result = mysqli_query($con, "SELECT * FROM `students_list` WHERE `roll_no` = $_GET[id]") or die(mysqli_error($con));
+$result = mysqli_query($con, "SELECT * FROM `students_list` WHERE `roll_no` = '$_GET[id]'") or die(mysqli_error($con));
 $row = mysqli_fetch_array($result);
 $fPhoneNumber = $row[11];
-
-$first_internal = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
- WHERE m.`student_id` = $_GET[id] and m.`marks_type`=1 and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
-$first_internal_count = mysqli_num_rows($first_internal);
-
-$attendance = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
- WHERE a.`student_id` = $_GET[id] and a.`attendance_type`=1 and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
-$attendance_count = mysqli_num_rows($attendance);
-
-$second_internal = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
- WHERE m.`student_id` = $_GET[id] and m.`marks_type`=2 and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
-$second_internal_count = mysqli_num_rows($second_internal);
-
-$attendance_second = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
- WHERE a.`student_id` = $_GET[id] and a.`attendance_type`=2 and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
-$attendance_second_count = mysqli_num_rows($attendance_second);
-
-$third_internal = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
- WHERE m.`student_id` = $_GET[id] and m.`marks_type`=3 and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
-$third_internal_count = mysqli_num_rows($third_internal);
-
-$attendance_third = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
- WHERE a.`student_id` = $_GET[id] and a.`attendance_type`=3 and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
-$attendance_third_count = mysqli_num_rows($attendance_third);
-
-$final_sem = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
- WHERE m.`student_id` = $_GET[id] and m.`marks_type`='finalSem' and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
-$final_sem_count = mysqli_num_rows($final_sem);
-
-$attendance_final = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
- WHERE a.`student_id` = $_GET[id] and a.`attendance_type`='finalSem' and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
-$attendance_final_count = mysqli_num_rows($attendance_final);
-
-if (isset($_GET['sem'])) {
-    $first_internal = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
- WHERE m.`student_id` = $_GET[id] and s.`semester` = $_GET[sem] and m.`marks_type`=1 and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
-    $first_internal_count = mysqli_num_rows($first_internal);
-
-    $attendance = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
- WHERE a.`student_id` = $_GET[id] and s.`semester` = $_GET[sem]  and a.`attendance_type`=1 and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
-    $attendance_count = mysqli_num_rows($attendance);
-
-    $second_internal = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
- WHERE m.`student_id` = $_GET[id] and s.`semester` = $_GET[sem]  and m.`marks_type`=2 and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
-    $second_internal_count = mysqli_num_rows($second_internal);
-
-    $attendance_second = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
- WHERE a.`student_id` = $_GET[id] and s.`semester` = $_GET[sem]  and a.`attendance_type`=2 and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
-    $attendance_second_count = mysqli_num_rows($attendance_second);
-
-    $third_internal = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
- WHERE m.`student_id` = $_GET[id] and s.`semester` = $_GET[sem]  and m.`marks_type`=3 and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
-    $third_internal_count = mysqli_num_rows($third_internal);
-
-    $attendance_third = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
- WHERE a.`student_id` = $_GET[id] and s.`semester` = $_GET[sem]  and a.`attendance_type`=3 and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
-    $attendance_third_count = mysqli_num_rows($attendance_third);
-
-    $final_sem = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
- WHERE m.`student_id` = $_GET[id] and s.`semester` = $_GET[sem]  and m.`marks_type`='finalSem' and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
-    $final_sem_count = mysqli_num_rows($final_sem);
-
-    $attendance_final = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
- WHERE a.`student_id` = $_GET[id] and s.`semester` = $_GET[sem]  and a.`attendance_type`='finalSem' and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
-    $attendance_final_count = mysqli_num_rows($attendance_final);
-}
 
 ?>
 
@@ -131,6 +65,14 @@ if (isset($_GET['sem'])) {
                                                 <option value="1">Internal 1</option>
                                                 <option value="2">Internal 2</option>
                                                 <option value="3">Internal 3</option>
+                                                <option value="CIE1">CIE Assesment 1</option>
+                                                <option value="CIE2">CIE Assesment 2</option>
+                                                <option value="CIE3">CIE Assesment 3</option>
+                                                <option value="MCQ">MCQ/QUIZ</option>
+                                                <option value="SKTEST1">Skill Test Pr 1</option>
+                                                <option value="SKTEST2">Skill Test Pr 2</option>
+                                                <option value="SKTEST3">Skill Test Pr 3</option>
+                                                <option value="portfolio">Portfolio</option>
                                                 <option value="finalSem">Final Sem</option>
                                             </select>
                                         </div>
@@ -183,10 +125,18 @@ if (isset($_GET['sem'])) {
                                             <label for="attendanceType">Attendance Type</label>
                                             <select name="attendanceType" class="form-control" id="attendanceType" required>
                                                 <option value="">--Select--</option>
-                                                <option value="1">Internal 1</option>
-                                                <option value="2">Internal 2</option>
-                                                <option value="3">Internal 3</option>
-                                                <option value="finalSem">Final Sem</option>
+                                                <option value="January">January</option>
+                                                <option value="February">February</option>
+                                                <option value="March">March</option>
+                                                <option value="April">April</option>
+                                                <option value="May">May</option>
+                                                <option value="June">June</option>
+                                                <option value="July">July</option>
+                                                <option value="August">August</option>
+                                                <option value="Septemeber">Septemeber</option>
+                                                <option value="October">October</option>
+                                                <option value="November">November</option>
+                                                <option value="December">December</option>
                                             </select>
                                         </div>
                                     </div>
@@ -213,413 +163,8 @@ if (isset($_GET['sem'])) {
                     </div>
                 </div>
             </div>
-            <div class="mt-3 mb-3">
-                <div class="card">
-                    <p class="card-header font-weight-bold text-danger">Filter By</p>
-                    <div class="card-body col-md-4">
-                        <table cellpadding="5" class="mb-2">
-                            <tr>
-                                <td class="font-weight-bold">Name</td>
-                                <td>: </td>
-                                <td>Basavaraj</td>
-                            </tr>
-                            <tr>
-                                <td class="font-weight-bold">Register Number</td>
-                                <td>: </td>
-                                <td>202</td>
-                            </tr>
-                            <tr>
-                                <td class="font-weight-bold">Semester</td>
-                                <td>: </td>
-                                <td><?php echo !isset($_GET['sem']) ? 'All' : $_GET['sem']; ?></td>
-                            </tr>
-                            <tr>
-                                <td class="font-weight-bold">Branch</td>
-                                <td>: </td>
-                                <td>Computer Science</td>
-                            </tr>
-                        </table>
-                        <div class="form-group">
-                            <label for="sem">Select Semester</label>
-                            <select class="form-control" id="sem" name="sem" onchange="onSelectSemester(event)" required>
-                                <option value="">--Semester--</option>
-                                <option value="1" <?php echo isset($_GET['sem']) && $_GET['sem'] === '1' ? 'selected' : ''; ?>>1st Sem</option>
-                                <option value="2" <?php echo isset($_GET['sem']) && $_GET['sem'] === '2' ? 'selected' : ''; ?>>2nd Sem</option>
-                                <option value="3" <?php echo isset($_GET['sem']) && $_GET['sem'] === '3' ? 'selected' : ''; ?>>3rd Sem</option>
-                                <option value="4" <?php echo isset($_GET['sem']) && $_GET['sem'] === '4' ? 'selected' : ''; ?>>4th Sem</option>
-                                <option value="5" <?php echo isset($_GET['sem']) && $_GET['sem'] === '5' ? 'selected' : ''; ?>>5th Sem</option>
-                                <option value="6" <?php echo isset($_GET['sem']) && $_GET['sem'] === '6' ? 'selected' : ''; ?>>6th Sem</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 mt-3">
-                    <div class="card">
-                        <p class="card-header font-weight-bold">Internal 1</p>
-                        <div class="card-body">
-                            <?php
-                            if ($first_internal_count === 0) {
-                            ?>
-                                <div class="text-center">
-                                    <p class="text-muted font-weight-bold m-0">No First Internal Attendance Data found</p>
-                                </div>
-                            <?php
-                            } else {
-                            ?>
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr class="bg-danger text-light">
-                                            <th scope="col">Subject Id</th>
-                                            <th scope="col">Subject Name</th>
-                                            <th scope="col">Total Marks</th>
-                                            <th scope="col">Obtained Marks</th>
-                                            <th scope="col">Semester</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $count = 0;
-                                        while ($row = mysqli_fetch_array($first_internal)) {
-                                            $count = $count + 1;
-                                        ?>
-                                            <tr>
-                                                <th scope="row"><?php echo $row[1]; ?></th>
-                                                <td><?php echo $row[8]; ?></td>
-                                                <td><?php echo $row[2]; ?></td>
-                                                <td><?php echo $row[3]; ?></td>
-                                                <td><?php echo $row[9]; ?></td>
-                                            </tr>
-                                        <?php
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            <?php
-                            }
-                            ?>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="font-weight-bold text-success">Attendance</h5>
-                            <?php
-                            if ($attendance_count === 0) {
-                            ?>
-                                <div class="">
-                                    <p class="text-muted font-weight-bold m-0">No First Internal Data found</p>
-                                </div>
-                            <?php
-                            } else {
-                            ?>
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr class="bg-danger text-light">
-                                            <th scope="col">Subject Id</th>
-                                            <th scope="col">Subject Name</th>
-                                            <th scope="col">Total Classes</th>
-                                            <th scope="col">Classes Attended</th>
-                                            <th scope="col">Semester</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $count = 0;
-                                        while ($row = mysqli_fetch_array($attendance)) {
-                                            $count = $count + 1;
-                                        ?>
-                                            <tr>
-                                                <th scope="row"><?php echo $row[1]; ?></th>
-                                                <td><?php echo $row[8]; ?></td>
-                                                <td><?php echo $row[3]; ?></td>
-                                                <td><?php echo $row[4]; ?></td>
-                                                <td><?php echo $row[9]; ?></td>
-                                            </tr>
-                                        <?php
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            <?php
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 mt-3">
-                    <div class="card">
-                        <p class="card-header font-weight-bold">Internal 2</p>
-                        <div class="card-body">
-                            <?php
-                            if ($second_internal_count === 0) {
-                            ?>
-                                <div class="text-center">
-                                    <img src="./../images/no-data.png" alt="No Data" width="300px">
-                                    <p class="text-muted font-weight-bold m-0">No Second Internal Data found</p>
-                                </div>
-                            <?php
-                            } else {
-                            ?>
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr class="bg-danger text-light">
-                                            <th scope="col">Subject Id</th>
-                                            <th scope="col">Subject Name</th>
-                                            <th scope="col">Total Marks</th>
-                                            <th scope="col">Obtained Marks</th>
-                                            <th scope="col">Semester</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $count = 0;
-                                        while ($row = mysqli_fetch_array($second_internal)) {
-                                            $count = $count + 1;
-                                        ?>
-                                            <tr>
-                                                <th scope="row"><?php echo $row[1]; ?></th>
-                                                <td><?php echo $row[8]; ?></td>
-                                                <td><?php echo $row[2]; ?></td>
-                                                <td><?php echo $row[3]; ?></td>
-                                                <td><?php echo $row[9]; ?></td>
-                                            </tr>
-                                        <?php
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            <?php
-                            }
-                            ?>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="font-weight-bold text-success">Attendance</h5>
-                            <?php
-                            if ($attendance_second_count === 0) {
-                            ?>
-                                <div class="">
-                                    <p class="text-muted font-weight-bold m-0">No Second Internal Attendance Data found</p>
-                                </div>
-                            <?php
-                            } else {
-                            ?>
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr class="bg-danger text-light">
-                                            <th scope="col">Subject Id</th>
-                                            <th scope="col">Subject Name</th>
-                                            <th scope="col">Total Classes</th>
-                                            <th scope="col">Classes Attended</th>
-                                            <th scope="col">Semester</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $count = 0;
-                                        while ($row = mysqli_fetch_array($attendance_second)) {
-                                            $count = $count + 1;
-                                        ?>
-                                            <tr>
-                                                <th scope="row"><?php echo $row[1]; ?></th>
-                                                <td><?php echo $row[8]; ?></td>
-                                                <td><?php echo $row[3]; ?></td>
-                                                <td><?php echo $row[4]; ?></td>
-                                                <td><?php echo $row[9]; ?></td>
-                                            </tr>
-                                        <?php
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            <?php
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 mt-3">
-                    <div class="card">
-                        <p class="card-header font-weight-bold">Internal 3</p>
-                        <div class="card-body">
-                            <?php
-                            if ($third_internal_count === 0) {
-                            ?>
-                                <div class="text-center">
-                                    <img src="./../images/no-data.png" alt="No Data" width="300px">
-                                    <p class="text-muted font-weight-bold m-0">No Third Internal Data found</p>
-                                </div>
-                            <?php
-                            } else {
-                            ?>
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr class="bg-danger text-light">
-                                            <th scope="col">Subject Id</th>
-                                            <th scope="col">Subject Name</th>
-                                            <th scope="col">Total Marks</th>
-                                            <th scope="col">Obtained Marks</th>
-                                            <th scope="col">Semester</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $count = 0;
-                                        while ($row = mysqli_fetch_array($third_internal)) {
-                                            $count = $count + 1;
-                                        ?>
-                                            <tr>
-                                                <th scope="row"><?php echo $row[1]; ?></th>
-                                                <td><?php echo $row[8]; ?></td>
-                                                <td><?php echo $row[2]; ?></td>
-                                                <td><?php echo $row[3]; ?></td>
-                                                <td><?php echo $row[9]; ?></td>
-                                            </tr>
-                                        <?php
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            <?php
-                            }
-                            ?>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="font-weight-bold text-success">Attendance</h5>
-                            <?php
-                            if ($attendance_third_count === 0) {
-                            ?>
-                                <div class="">
-                                    <p class="text-muted font-weight-bold m-0">No Third Internal Attendance Data found</p>
-                                </div>
-                            <?php
-                            } else {
-                            ?>
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr class="bg-danger text-light">
-                                            <th scope="col">Subject Id</th>
-                                            <th scope="col">Subject Name</th>
-                                            <th scope="col">Total Classes</th>
-                                            <th scope="col">Classes Attended</th>
-                                            <th scope="col">Semester</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $count = 0;
-                                        while ($row = mysqli_fetch_array($attendance_third)) {
-                                            $count = $count + 1;
-                                        ?>
-                                            <tr>
-                                                <th scope="row"><?php echo $row[1]; ?></th>
-                                                <td><?php echo $row[8]; ?></td>
-                                                <td><?php echo $row[3]; ?></td>
-                                                <td><?php echo $row[4]; ?></td>
-                                                <td><?php echo $row[9]; ?></td>
-                                            </tr>
-                                        <?php
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            <?php
-                            }
-                            ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 mt-3">
-                    <div class="card">
-                        <p class="card-header font-weight-bold">Semester</p>
-                        <div class="card-body">
-                            <?php
-                            if ($final_sem_count === 0) {
-                            ?>
-                                <div class="text-center">
-                                    <img src="./../images/no-data.png" alt="No Data" width="300px">
-                                    <p class="text-muted font-weight-bold m-0">No Semester Data found</p>
-                                </div>
-                            <?php
-                            } else {
-                            ?>
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr class="bg-danger text-light">
-                                            <th scope="col">Subject Id</th>
-                                            <th scope="col">Subject Name</th>
-                                            <th scope="col">Total Marks</th>
-                                            <th scope="col">Obtained Marks</th>
-                                            <th scope="col">Semester</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php
-                                        $count = 0;
-                                        while ($row = mysqli_fetch_array($final_sem)) {
-                                            $count = $count + 1;
-                                        ?>
-                                            <tr>
-                                                <th scope="row"><?php echo $row[1]; ?></th>
-                                                <td><?php echo $row[8]; ?></td>
-                                                <td><?php echo $row[2]; ?></td>
-                                                <td><?php echo $row[3]; ?></td>
-                                                <td><?php echo $row[9]; ?></td>
-                                            </tr>
-                                        <?php
-                                        }
-                                        ?>
-                                    </tbody>
-                                </table>
-                            <?php
-                            }
-                            ?>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="font-weight-bold text-success">Attendance</h5>
-                        <?php
-                        if ($attendance_final_count === 0) {
-                        ?>
-                            <div class="">
-                                <p class="text-muted font-weight-bold m-0">No Final Attendance Data found</p>
-                            </div>
-                        <?php
-                        } else {
-                        ?>
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr class="bg-danger text-light">
-                                        <th scope="col">Subject Id</th>
-                                        <th scope="col">Subject Name</th>
-                                        <th scope="col">Total Classes</th>
-                                        <th scope="col">Classes Attended</th>
-                                        <th scope="col">Semester</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $count = 0;
-                                    while ($row = mysqli_fetch_array($attendance_final)) {
-                                        $count = $count + 1;
-                                    ?>
-                                        <tr>
-                                            <th scope="row"><?php echo $row[1]; ?></th>
-                                            <td><?php echo $row[8]; ?></td>
-                                            <td><?php echo $row[3]; ?></td>
-                                            <td><?php echo $row[4]; ?></td>
-                                            <td><?php echo $row[9]; ?></td>
-                                        </tr>
-                                    <?php
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                        <?php
-                        }
-                        ?>
-                    </div>
-                </div>
-            </div>
         </div>
+    </div>
     </div>
 </body>
 
@@ -627,21 +172,17 @@ if (isset($_GET['sem'])) {
 
 <?php
 
-if (isset($_POST['subjectId'])) {
-    // Subject details information
-    $subject_result = mysqli_query($con, "SELECT * FROM `subjects` WHERE `subjectId`=$_POST[subjectId]") or die(mysqli_error($con));
-    $subjet_row = mysqli_fetch_array($subject_result);
-    if ($marks_type === 1) {
-        $subject_marks_type = "1st Internal";
-    } else if ($marks_type === 2) {
-        $subject_marks_type = "2nd Internal";
-    } else if ($marks_type === 3) {
-        $subject_marks_type = "3rd Internal";
-    } else {
-        $subject_marks_type = 'Final Sem';
-    }
-    // Subject details complete
-}
+// Program to display URL of current page.
+if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+    $link = "https";
+else $link = "http";
+
+// Here append the common URL characters.
+$link .= "://";
+
+// Append the host(domain name, ip) to the URL.
+$link .= $_SERVER['HTTP_HOST'];
+$link = "http://shorturl.at/gsty4";
 
 if (isset($_POST['submit'])) {
     $deptId = $_SESSION['userData'][3];
@@ -649,53 +190,102 @@ if (isset($_POST['submit'])) {
     $marks_type = $_POST['marksType'];
     $totalMarks = $_POST['totalMarks'];
     $obtainedMarks = $_POST['obtainedMarks'];
-    $result = mysqli_query($con, "SELECT * FROM `marks_details` WHERE `student_id`='$_GET[id]' 
-    and `subjectId`='$subjectId' and `marks_type`='$marks_type'") or die(mysqli_error($con));
-    $marks_detail_count = mysqli_num_rows($result);
-    if ($marks_detail_count > 0) {
+    $subject_result = mysqli_query($con, "SELECT * FROM `subjects` WHERE `subjectId`='$_POST[subjectId]'") or die(mysqli_error($con));
+    $subjet_row = mysqli_fetch_array($subject_result);
+    if ($subjet_row[3] != '5' && $subjet_row[3] !== '6') {
+        $result = mysqli_query($con, "SELECT * FROM `student_marks_details` WHERE `student_id`='$_GET[id]' 
+    and `subjectId`='$subjectId'") or die(mysqli_error($con));
+        $marks_detail_count = mysqli_num_rows($result);
+        if ($marks_detail_count === 0) {
+            $query = "INSERT INTO `student_marks_details` (
+            `id`, `subjectId`, `student_id`, `$marks_type`) 
+            VALUES (NULL, '$subjectId', '$_GET[id]', '$totalMarks,$obtainedMarks')";
+            if (mysqli_query($con, $query)) {
+                $smsInfo = [
+                    "mobileNumber" => "+91" . $fPhoneNumber,
+                    "totalMarks" => $totalMarks,
+                    "obtainedMarks" => $obtainedMarks,
+                    "SubjectName" => $subjet_row[2],
+                    "type" => 'marks',
+                    "marks_type" => $marks_type,
+                    "link" => $link
+                ];
+                sendSms($smsInfo);
 ?>
-        <script>
-            alert('Marks has been already added for this subject!');
-            document.location = './create_student_details.php?id=<?php echo $_GET['id']; ?>';
-        </script>
-        <?php
+                <script>
+                    alert('Marks has been added Sucessfully!');
+                    document.location = './create_student_details.php?id=<?php echo $_GET['id']; ?>';
+                </script>
+            <?php
+            } else {
+                die(mysqli_error($con));
+            }
+        } else {
+            $update_query = "UPDATE `student_marks_details` SET `$marks_type` = '$totalMarks,$obtainedMarks'
+             WHERE `student_id`='$_GET[id]' 
+            and `subjectId`='$subjectId'";
+            if (mysqli_query($con, $update_query)) {
+                $smsInfo = [
+                    "mobileNumber" => "+91" . $fPhoneNumber,
+                    "totalMarks" => $totalMarks,
+                    "obtainedMarks" => $obtainedMarks,
+                    "SubjectName" => $subjet_row[2],
+                    "type" => 'marks',
+                    "marks_type" => $marks_type,
+                    "link" => $link
+                ];
+                sendSms($smsInfo);
+            ?>
+                <script>
+                    alert('Marks has been Updated Sucessfully!');
+                    document.location = './create_student_details.php?id=<?php echo $_GET['id']; ?>';
+                </script>
+            <?php
+            } else {
+                die(mysqli_error($con));
+            }
+        }
     } else {
-        $insert_query = "INSERT INTO `marks_details` (`id`, `subjectId`, `total_marks`, 
-        `obtained_marks`, `student_id`, `marks_type`) 
-        VALUES (NULL, '$subjectId', '$totalMarks', '$obtainedMarks', '$_GET[id]', '$marks_type')";
-        if (mysqli_query($con, $insert_query)) {
-            $url = "https://api.twilio.com/2010-04-01/Accounts/ACd74689a87b8ac60065964001b26556a5/Messages.json";
-            $data = array(
-                'From' => "+19704144821",
-                'To' => "+91" . $fPhoneNumber,
-                'Body' => "$subjet_row[2]-$subject_marks_type marks has been added to the portal please login and check in the portal. Thank You!",
-            );
-            var_dump($data);
-            $post = http_build_query($data);
-            $x = curl_init($url);
-            curl_setopt($x, CURLOPT_POST, true);
-            curl_setopt($x, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($x, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($x, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-            curl_setopt($x, CURLOPT_USERPWD, "ACd74689a87b8ac60065964001b26556a5:52ba8eaef772eb3671e7a3801305e852");
-            curl_setopt($x, CURLOPT_POSTFIELDS, $post);
-            $y = curl_exec($x);
-            var_dump($y);
-            curl_close($x);
-        ?>
+        $result = mysqli_query($con, "SELECT * FROM `marks_details` WHERE `student_id`='$_GET[id]' 
+    and `subjectId`='$subjectId' and `marks_type`='$marks_type'") or die(mysqli_error($con));
+        $marks_detail_count = mysqli_num_rows($result);
+        if ($marks_detail_count > 0) {
+            ?>
             <script>
-                alert('Marks has been added successfully!');
+                alert('Marks has been already added for this subject!');
                 document.location = './create_student_details.php?id=<?php echo $_GET['id']; ?>';
             </script>
+            <?php
+        } else {
+            $insert_query = "INSERT INTO `marks_details` (`id`, `subjectId`, `total_marks`, 
+        `obtained_marks`, `student_id`, `marks_type`) 
+        VALUES (NULL, '$subjectId', '$totalMarks', '$obtainedMarks', '$_GET[id]', '$marks_type')";
+            if (mysqli_query($con, $insert_query)) {
+                $smsInfo = [
+                    "mobileNumber" => "+91" . $fPhoneNumber,
+                    "totalMarks" => $totalMarks,
+                    "obtainedMarks" => $obtainedMarks,
+                    "SubjectName" => $subjet_row[2],
+                    "type" => 'marks',
+                    "marks_type" => $marks_type,
+                    "link" => $link
+                ];
+                sendSms($smsInfo);
+            ?>
+                <script>
+                    alert('Marks has been added successfully!');
+                    document.location = './create_student_details.php?id=<?php echo $_GET['id']; ?>';
+                </script>
+            <?php
+            } else
+            ?>
+            <script>
+                alert('Something went wrong!');
+                die(mysqli_error($con));
+                // document.location = './create_student_details.php?id=<?php echo $_GET['id']; ?>';
+            </script>
         <?php
-        } else
-        ?>
-        <script>
-            alert('Something went wrong!');
-            die(mysqli_error($con));
-            // document.location = './create_student_details.php?id=<?php echo $_GET['id']; ?>';
-        </script>
-    <?php
+        }
     }
 }
 
@@ -708,8 +298,10 @@ if (isset($_POST['attendance_submit'])) {
     $result = mysqli_query($con, "SELECT * FROM `attendance` WHERE `student_id`='$_GET[id]' 
     and `subjectId`='$subjectId' and `attendance_type`='$attendance_type'") or die(mysqli_error($con));
     $marks_detail_count = mysqli_num_rows($result);
+    $subject_result = mysqli_query($con, "SELECT * FROM `subjects` WHERE `subjectId`='$_POST[subjectId]'") or die(mysqli_error($con));
+    $subjet_row = mysqli_fetch_array($subject_result);
     if ($marks_detail_count > 0) {
-    ?>
+        ?>
         <script>
             alert('Attendance has been already added for this subject!');
             document.location = './create_student_details.php?id=<?php echo $_GET['id']; ?>';
@@ -720,39 +312,76 @@ if (isset($_POST['attendance_submit'])) {
         `number_of_classes`, `no_of_cls_attended`, `attendance_type`) 
         VALUES (NULL, '$subjectId','$_GET[id]','$totalClasses', '$classesAttended', '$attendance_type')";
         if (mysqli_query($con, $insert_query)) {
-            $url = "https://api.twilio.com/2010-04-01/Accounts/ACd74689a87b8ac60065964001b26556a5/Messages.json";
-            $data = array(
-                'From' => "+19704144821",
-                'To' => "+91" . $fPhoneNumber,
-                'Body' => "$subjet_row[2]-$subject_marks_type attendance has been added to the portal please login and check in the portal. Thank You!",
-            );
-            var_dump($data);
-            $post = http_build_query($data);
-            $x = curl_init($url);
-            curl_setopt($x, CURLOPT_POST, true);
-            curl_setopt($x, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($x, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($x, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-            curl_setopt($x, CURLOPT_USERPWD, "ACd74689a87b8ac60065964001b26556a5:bd670b4ac4ce566a5f15b401c93b7b3c");
-            curl_setopt($x, CURLOPT_POSTFIELDS, $post);
-            $y = curl_exec($x);
-            var_dump($y);
-            curl_close($x);
+            $smsInfo = [
+                "mobileNumber" => "+91" . $fPhoneNumber,
+                "totalClasses" => $totalClasses,
+                "classesAttended" => $classesAttended,
+                "SubjectName" => $subjet_row[2],
+                "type" => 'attendance',
+                "marks_type" => $attendance_type,
+                "link" => $link
+            ];
+            sendSms($smsInfo);
         ?>
             <script>
                 alert('Attendance has been added successfully!');
                 document.location = './create_student_details.php?id=<?php echo $_GET['id']; ?>';
             </script>
         <?php
-        } else
+        } else {
         ?>
-        <script>
-            alert('Something went wrong!');
-            die(mysqli_error($con));
-            // document.location = './create_student_details.php?id=<?php echo $_GET['id']; ?>';
-        </script>
+            <script>
+                alert('Something went wrong!');
+                die(mysqli_error($con));
+                // document.location = './create_student_details.php?id=<?php echo $_GET['id']; ?>';
+            </script>
 <?php
+        }
     }
+}
+
+function sendSms($info)
+{
+    $url = "https://api.twilio.com/2010-04-01/Accounts/ACd74689a87b8ac60065964001b26556a5/Messages.json";
+    if ($info['type'] === 'attendance') {
+        $data = array(
+            'From' => "+19704144821",
+            'To' => $info['mobileNumber'],
+            'Body' => "
+Attendance Info - " . $info['marks_type'] . "
+Subject Name : " . $info['SubjectName'] . "
+Total Classes : " . $info['totalClasses'] . "
+Classes Attended : " . $info['classesAttended'] . "
+Link : " . $info['link'] . "
+Click on above link to login into the portal
+Thank You!
+            ",
+        );
+    } else {
+        $data = array(
+            'From' => "+19704144821",
+            'To' => $info['mobileNumber'],
+            'Body' => "
+Marks Details - " . $info['marks_type'] . "
+Subject Name : " . $info['SubjectName'] . "
+Total Marks : " . $info['totalMarks'] . "
+Obtained Marks : " . $info['obtainedMarks'] . "
+Link : " . $info['link'] . "
+Click on above link to login into the portal
+Thank You!
+            ",
+        );
+    }
+    $post = http_build_query($data);
+    $x = curl_init($url);
+    curl_setopt($x, CURLOPT_POST, true);
+    curl_setopt($x, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($x, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($x, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+    curl_setopt($x, CURLOPT_USERPWD, "ACd74689a87b8ac60065964001b26556a5:52ba8eaef772eb3671e7a3801305e852");
+    curl_setopt($x, CURLOPT_POSTFIELDS, $post);
+    $y = curl_exec($x);
+    curl_close($x);
 }
 
 ?>

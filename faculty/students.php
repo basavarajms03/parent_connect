@@ -47,7 +47,8 @@ $seminar_hall_count = mysqli_num_rows($result);
                             <th scope="col">Full Name</th>
                             <th scope="col">Email</th>
                             <th scope="col">Mobile</th>
-                            <th scope="col">Create/view</th>
+                            <th scope="col">Create</th>
+                            <th scope="col">view</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,7 +63,8 @@ $seminar_hall_count = mysqli_num_rows($result);
                                 <td><?php echo $row[2]; ?> <?php echo $row[3]; ?></td>
                                 <td><?php echo $row[4]; ?></td>
                                 <td><?php echo $row[5]; ?></td>
-                                <td><a href="./create_student_details.php?id=<?php echo $row[1]; ?>" class="badge badge-success">Create/View Details</a></td>
+                                <td><a href="./create_student_details.php?id=<?php echo $row[1]; ?>" class="badge badge-danger">Create Details</a></td>
+                                <td><a href="./student_details.php?id=<?php echo $row[1]; ?>&sem=1" class="badge badge-success">View Details</a></td>
                             </tr>
                         <?php
                         }
