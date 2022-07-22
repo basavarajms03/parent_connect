@@ -62,7 +62,7 @@ if (isset($_POST['submit'])) {
 ?>
         <script>
             alert('Logged in successfully!');
-            document.location = 'parents_home.php';
+            document.location = 'parents_home.php?sem=1';
         </script>
     <?php
     } else {

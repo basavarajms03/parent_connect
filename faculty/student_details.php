@@ -240,9 +240,9 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     </td>
                                     <td>
                                         <?php
-                                        if ($row[5] !== '0,0') {
+                                        if ($row[3  ] !== '0,0') {
                                             $avg1 = (explode(',', $row[3])[1] + explode(',', $row[4])[1] + explode(',', $row[5])[1]) / $CIECount;
-                                            echo round($avg1) . '/' . explode(',', $row[5])[0];
+                                            echo round($avg1) . '/' . explode(',', $row[3])[0];
                                         }
                                         ?>
                                     </td>
@@ -273,7 +273,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                             <?php
                                             if ($row[9] !== '0,0') {
                                                 $avg2 = (explode(',', $row[9])[1] + explode(',', $row[10])[1]) / $SKTestCount;
-                                                echo round($avg) . '/' . explode(',', $row[9])[0];
+                                                echo round($avg2) . '/' . explode(',', $row[9])[0];
                                             } else {
                                                 echo '-';
                                             }
