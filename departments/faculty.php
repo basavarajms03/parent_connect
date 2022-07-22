@@ -66,7 +66,7 @@ $seminar_hall_count = mysqli_num_rows($result);
                                 <td><?php echo $row[5]; ?></td>
                                 <td><?php echo $row[6]; ?></td>
                                 <td><a href="./edit_faculty.php?id=<?php echo $row[0]; ?>" class="badge badge-success">Edit</a></td>
-                                <td><a href="./fauclty.php?id=<?php echo $row[0]; ?>" class="badge badge-danger">Delete</a></td>
+                                <td><a href="./faculty.php?id=<?php echo $row[0]; ?>" class="badge badge-danger">Delete</a></td>
                             </tr>
                         <?php
                         }
