@@ -551,8 +551,8 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                                 <tr>
                                                     <th scope="row"><?php echo $row[1]; ?></th>
                                                     <td><?php echo $row[8]; ?></td>
-                                                    <td><?php echo $row[3] == -1 ? 'AB' : $row[3]; ?></td>
-                                                    <td><?php echo $row[4] == -1 ? 'AB' : $row[4]; ?></td>
+                                                    <td><?php echo $row[3]; ?></td>
+                                                    <td><?php echo $row[4]; ?></td>
                                                     <td><?php echo $row[9]; ?></td>
                                                 </tr>
                                             <?php
@@ -690,8 +690,8 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                                 <tr>
                                                     <th scope="row"><?php echo $row[1]; ?></th>
                                                     <td><?php echo $row[8]; ?></td>
-                                                    <td><?php echo $row[2]; ?></td>
-                                                    <td><?php echo $row[3]; ?></td>
+                                                    <td><?php echo $row[2] == -1 ? 'AB' : $row[2]; ?></td>
+                                                    <td><?php echo $row[3] == -1 ? 'AB' : $row[3]; ?></td>
                                                     <td><?php echo $row[9]; ?></td>
                                                 </tr>
                                             <?php
@@ -844,6 +844,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                 ?>
                 </div>
         </div>
+    </div>
 </body>
 
 </html>
