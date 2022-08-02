@@ -52,7 +52,8 @@ include('../db/dbcon.php');
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="number">Mobile Number</label>
-                        <input type="number" class="form-control" name="number" id="number" placeholder="Mobile Number" required>
+                        <input type="text" maxlength="10" pattern="\d{10}" title="Please enter exactly 10 digits" class="form-control" name="number" id="number" placeholder="Mobile Number" required>
+                        <small class="text-muted">Please enter only digits</small>
                     </div>
                 </div>
                 <div class="col-md-12 text-right mb-5">

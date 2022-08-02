@@ -11,6 +11,10 @@ $subjects_two = mysqli_query($con, "SELECT * FROM `subjects` WHERE `deptId` = '$
 $result = mysqli_query($con, "SELECT * FROM `students_list` WHERE `roll_no` = '$_GET[id]'") or die(mysqli_error($con));
 $row = mysqli_fetch_array($result);
 $fPhoneNumber = $row[11];
+$student_details = $row[2] . ' ' . $row[3] . '
+' . $row[1] . '
+Semester:' . $row[9] . '
+';
 
 ?>
 
@@ -90,12 +94,20 @@ $fPhoneNumber = $row[11];
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="obtainedMarks">Obtained Marks</label>
-                                            <input type="number" class="form-control" name="obtainedMarks" id="obtainedMarks" placeholder="Enter Obtained Marks" required>
+                                            <input type="text" class="form-control" name="obtainedMarks" id="obtainedMarks" placeholder="Enter Obtained Marks" required>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 p-0 text-right">
-                                    <button type="submit" name="submit" class="btn btn-success">Submit</button>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="mySwitch" name="absent" value="0" onchange="onChangeOfAbsent(event)">
+                                            <label class="form-check-label" for="mySwitch">Absent</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 text-right">
+                                        <button type="submit" name="submit" class="btn btn-success">Submit</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -147,13 +159,19 @@ $fPhoneNumber = $row[11];
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="totalClasses">Total Classes</label>
-                                            <input type="number" class="form-control" name="totalClasses" id="totalClasses" placeholder="Enter Total Classes" required>
+                                            <input type="number" class="form-control" name="totalClasses" id="totalClasses" placeholder="Enter Total Classes" onchange="calculatePercentage()" required>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="classesAttended">Number Of Classes Attended</label>
-                                            <input type="number" class="form-control" name="classesAttended" id="classesAttended" placeholder="Number Of Classes Attended" required>
+                                            <input type="number" class="form-control" name="classesAttended" id="classesAttended" onchange="calculatePercentage()" placeholder="Number Of Classes Attended" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="Percentage">Percentage</label>
+                                            <input type="text" readonly class="form-control" name="Percentage" id="Percentage" placeholder="Percentage" required>
                                         </div>
                                     </div>
                                 </div>
@@ -192,6 +210,10 @@ if (isset($_POST['submit'])) {
     $marks_type = $_POST['marksType'];
     $totalMarks = $_POST['totalMarks'];
     $obtainedMarks = $_POST['obtainedMarks'];
+    if (isset($_POST['absent']) && $_POST['absent'] == 0) {
+        $totalMarks = -1;
+        $obtainedMarks = -1;
+    }
     $subject_result = mysqli_query($con, "SELECT * FROM `subjects` WHERE `subjectId`='$_POST[subjectId]'") or die(mysqli_error($con));
     $subjet_row = mysqli_fetch_array($subject_result);
     if ($subjet_row[3] != '5' && $subjet_row[3] !== '6') {
@@ -203,16 +225,41 @@ if (isset($_POST['submit'])) {
             `id`, `subjectId`, `student_id`, `$marks_type`) 
             VALUES (NULL, '$subjectId', '$_GET[id]', '$totalMarks,$obtainedMarks')";
             if (mysqli_query($con, $query)) {
-                $smsInfo = [
-                    "mobileNumber" => "+91" . $fPhoneNumber,
-                    "totalMarks" => $totalMarks,
-                    "obtainedMarks" => $obtainedMarks,
-                    "SubjectName" => $subjet_row[2],
-                    "type" => 'marks',
-                    "marks_type" => $marks_type,
-                    "link" => $link
-                ];
-                sendSms($smsInfo);
+
+                // Sending SMS Information started
+                $student_marks_details = mysqli_query($con, "SELECT s.*, m.`$marks_type` FROM `student_marks_details` m, `subjects` s
+                WHERE m.`student_id` = '$_GET[id]'
+                and s.`subjectId` = m.`subjectId`
+                and s.`semester` = $subjet_row[3] and m.`$marks_type` != '0,0'") or die(mysqli_error($con));
+                $student_marks_details_count = mysqli_num_rows($student_marks_details);
+                $subjectsCount = mysqli_query(
+                    $con,
+                    "SELECT * FROM `subjects_count` WHERE `deptId` = '$deptId' and `sem` = $subjet_row[3]
+                "
+                ) or die(mysqli_error($con));
+                $subjectResult = mysqli_fetch_array($subjectsCount);
+                if ($subjectResult[2] == $student_marks_details_count) {
+                    $smsBody = "";
+                    $smsBody .= $student_details;
+                    while ($row = mysqli_fetch_array($student_marks_details)) {
+                        if ($row[5] !== '-1,-1') {
+                            $smsBody .= "$row[2]" . " = " . explode(',', $row[5])[1] . '/' . explode(',', $row[5])[0] . "
+                            ";
+                        } else {
+                            $smsBody .= "$row[2]" . " = AB
+                            ";
+                        }
+                    }
+                    $smsInfo = [
+                        "mobileNumber" => "+91" . $fPhoneNumber,
+                        "body" => $smsBody,
+                        "marks_type" => $marks_type,
+                        "link" => $link,
+                        "type" => 'marks'
+                    ];
+                    sendSms($smsInfo);
+                }
+                //Sending SMS Ends
 ?>
                 <script>
                     alert('Marks has been added Sucessfully!');
@@ -227,16 +274,40 @@ if (isset($_POST['submit'])) {
              WHERE `student_id`='$_GET[id]' 
             and `subjectId`='$subjectId'";
             if (mysqli_query($con, $update_query)) {
-                $smsInfo = [
-                    "mobileNumber" => "+91" . $fPhoneNumber,
-                    "totalMarks" => $totalMarks,
-                    "obtainedMarks" => $obtainedMarks,
-                    "SubjectName" => $subjet_row[2],
-                    "type" => 'marks',
-                    "marks_type" => $marks_type,
-                    "link" => $link
-                ];
-                sendSms($smsInfo);
+                // Sending SMS Information started
+                $student_marks_details = mysqli_query($con, "SELECT s.*, m.`$marks_type` FROM `student_marks_details` m, `subjects` s
+                WHERE m.`student_id` = '$_GET[id]'
+                and s.`subjectId` = m.`subjectId`
+                and s.`semester` = $subjet_row[3] and m.`$marks_type` != '0,0'") or die(mysqli_error($con));
+                $student_marks_details_count = mysqli_num_rows($student_marks_details);
+                $subjectsCount = mysqli_query(
+                    $con,
+                    "SELECT * FROM `subjects_count` WHERE `deptId` = '$deptId' and `sem` = $subjet_row[3]
+                "
+                ) or die(mysqli_error($con));
+                $subjectResult = mysqli_fetch_array($subjectsCount);
+                if ($subjectResult[2] == $student_marks_details_count) {
+                    $smsBody = "";
+                    $smsBody .= $student_details;
+                    while ($row = mysqli_fetch_array($student_marks_details)) {
+                        if ($row[5] !== '-1,-1') {
+                            $smsBody .= "$row[2]" . " = " . explode(',', $row[5])[1] . '/' . explode(',', $row[5])[0] . "
+                            ";
+                        } else {
+                            $smsBody .= "$row[2]" . " = AB
+                            ";
+                        }
+                    }
+                    $smsInfo = [
+                        "mobileNumber" => "+91" . $fPhoneNumber,
+                        "body" => $smsBody,
+                        "marks_type" => $marks_type,
+                        "link" => $link,
+                        "type" => 'marks'
+                    ];
+                    sendSms($smsInfo);
+                }
+                //Sending SMS Ends
             ?>
                 <script>
                     alert('Marks has been Updated Sucessfully!');
@@ -263,16 +334,39 @@ if (isset($_POST['submit'])) {
         `obtained_marks`, `student_id`, `marks_type`) 
         VALUES (NULL, '$subjectId', '$totalMarks', '$obtainedMarks', '$_GET[id]', '$marks_type')";
             if (mysqli_query($con, $insert_query)) {
-                $smsInfo = [
-                    "mobileNumber" => "+91" . $fPhoneNumber,
-                    "totalMarks" => $totalMarks,
-                    "obtainedMarks" => $obtainedMarks,
-                    "SubjectName" => $subjet_row[2],
-                    "type" => 'marks',
-                    "marks_type" => $marks_type,
-                    "link" => $link
-                ];
-                sendSms($smsInfo);
+                // Sending SMS Information started
+                $internal = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
+                WHERE m.`student_id` = '$_GET[id]' and m.`marks_type`= '$marks_type' 
+                and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
+                $internal_count = mysqli_num_rows($internal);
+                $subjectsCount = mysqli_query(
+                    $con,
+                    "SELECT * FROM `subjects_count` WHERE `deptId` = '$deptId' and `sem` = $subjet_row[3]
+                "
+                ) or die(mysqli_error($con));
+                $subjectResult = mysqli_fetch_array($subjectsCount);
+                if ($subjectResult[2] == $internal_count) {
+                    $smsBody = "";
+                    $smsBody .= $student_details;
+                    while ($row = mysqli_fetch_array($internal)) {
+                        if ($row[3] != '-1') {
+                            $smsBody .= "$row[8]" . " = " . $row[3] . '/' . $row[2] . "
+                            ";
+                        } else {
+                            $smsBody .= "$row[8]" . " = AB
+                            ";
+                        }
+                    }
+                    $smsInfo = [
+                        "mobileNumber" => "+91" . $fPhoneNumber,
+                        "body" => $smsBody,
+                        "marks_type" => $marks_type,
+                        "link" => $link,
+                        "type" => 'marks'
+                    ];
+                    sendSms($smsInfo);
+                }
+                //Sending SMS Ends
             ?>
                 <script>
                     alert('Marks has been added successfully!');
@@ -283,7 +377,6 @@ if (isset($_POST['submit'])) {
             ?>
             <script>
                 alert('Something went wrong!');
-                die(mysqli_error($con));
                 // document.location = './create_student_details.php?id=<?php echo $_GET['id']; ?>';
             </script>
         <?php
@@ -315,6 +408,7 @@ if (isset($_POST['attendance_submit'])) {
         VALUES (NULL, '$subjectId','$_GET[id]','$totalClasses', '$classesAttended', '$attendance_type')";
         if (mysqli_query($con, $insert_query)) {
             $smsInfo = [
+                "nameInfo" => $student_details,
                 "mobileNumber" => "+91" . $fPhoneNumber,
                 "totalClasses" => $totalClasses,
                 "classesAttended" => $classesAttended,
@@ -349,29 +443,27 @@ function sendSms($info)
         $data = array(
             'From' => "+19704144821",
             'To' => $info['mobileNumber'],
-            'Body' => "
-Attendance Info - " . $info['marks_type'] . "
-Subject Name : " . $info['SubjectName'] . "
-Total Classes : " . $info['totalClasses'] . "
-Classes Attended : " . $info['classesAttended'] . "
-Link : " . $info['link'] . "
-Click on above link to login into the portal
-Thank You!
-            ",
+            'Body' => $info['nameInfo'] . "
+    Attendance Info - " . $info['marks_type'] . "
+    Subject Name : " . $info['SubjectName'] . "
+    Total Classes : " . $info['totalClasses'] . "
+    Classes Attended : " . $info['classesAttended'] . "
+    Link : " . $info['link'] . "
+    Click on above link to login into the portal
+    Thank You!
+                ",
         );
     } else {
         $data = array(
             'From' => "+19704144821",
             'To' => $info['mobileNumber'],
             'Body' => "
-Marks Details - " . $info['marks_type'] . "
-Subject Name : " . $info['SubjectName'] . "
-Total Marks : " . $info['totalMarks'] . "
-Obtained Marks : " . $info['obtainedMarks'] . "
-Link : " . $info['link'] . "
-Click on above link to login into the portal
-Thank You!
-            ",
+    Marks Details - " . $info['marks_type'] . "\n" .
+                $info['body'] . "\n
+    Link : " . $info['link'] . "\n
+    Click on above link to login into the portal
+    Thank You!
+                ",
         );
     }
     $post = http_build_query($data);
@@ -380,7 +472,7 @@ Thank You!
     curl_setopt($x, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($x, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($x, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($x, CURLOPT_USERPWD, "ACd74689a87b8ac60065964001b26556a5:52ba8eaef772eb3671e7a3801305e852");
+    curl_setopt($x, CURLOPT_USERPWD, "ACd74689a87b8ac60065964001b26556a5:51dfc270cdd89f7f17a04d65ad7bc545");
     curl_setopt($x, CURLOPT_POSTFIELDS, $post);
     $y = curl_exec($x);
     curl_close($x);
@@ -396,5 +488,23 @@ Thank You!
         } else {
             document.location = "./create_student_details.php?id=<?php echo $_GET['id']; ?>&&sem=" + event.target.value;
         }
+    }
+
+    function onChangeOfAbsent(event) {
+        if (event.target.checked) {
+            document.getElementById('totalMarks').setAttribute('disabled', true);
+            document.getElementById('obtainedMarks').setAttribute('disabled', true);
+        } else {
+            document.getElementById('obtainedMarks').removeAttribute('disabled');
+            document.getElementById('totalMarks').removeAttribute('disabled');
+        }
+    }
+
+    function calculatePercentage() {
+        var totalClasses = document.getElementById('totalClasses').value;
+        var classesAttended = document.getElementById('classesAttended').value;
+        console.log(totalClasses, classesAttended);
+        let percentage = (classesAttended / totalClasses) * 100;
+        document.getElementById('Percentage').value = Math.round(percentage) + '%';
     }
 </script>

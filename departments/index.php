@@ -56,6 +56,7 @@ if (isset($_POST['submit'])) {
     if ($check_count > 0) {
         session_start();
         $_SESSION['deptId'] = $username;
+        $_SESSION['userData'] = $check_rows;
 ?>
         <script>
             alert('Logged in successfully!');

@@ -84,19 +84,20 @@ $seminar_hall_count = mysqli_num_rows($result);
 <?php
 
 if (isset($_GET['id'])) {
-    $delete_query = "DELETE FROM `students_list` WHERE `students_list`.`id` = $_GET[id]";
+    $delete_query = "DELETE FROM `parent_connect`.`subjects` WHERE `subjects`.`id` = $_GET[id]";
     if (mysqli_query($con, $delete_query)) {
 ?>
         <script>
-            alert('Student has been deleted successfully!');
-            document.location = './students_list.php';
+            alert('Subject has been deleted successfully!');
+            document.location = './subjects.php';
         </script>
     <?php
     } else {
+        die(mysqli_error($con));
     ?>
         <script>
             alert('Something went wrong!');
-            document.location = './students_list.php';
+            // document.location = './subjects.php';
         </script>
 <?php
     }

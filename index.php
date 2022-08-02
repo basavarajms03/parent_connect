@@ -44,13 +44,19 @@ include('./db/dbcon.php');
                     <a class="nav-link" href="#">Home </a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="./departments/index.php">Department Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./faculty/">Faculty Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./parents/">Student/Parent Login</a>
+                    <a class="nav-link" href="./parents/">Parent Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact </a>
                 </li>
             </ul>
         </div>

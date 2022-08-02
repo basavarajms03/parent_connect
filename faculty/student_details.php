@@ -191,8 +191,12 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <th scope="col">Portfolio</th>
                                 <?php
                                 }
+                                if ($_GET['sem'] == 1 || $_GET['sem'] == 2) {
                                 ?>
-                                <th scope="col">Avg</th>
+                                    <th scope="col">Avg</th>
+                                <?php
+                                }
+                                ?>
                                 <th scope="col">Total</th>
                             </tr>
                         </thead>
@@ -205,14 +209,31 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                 $avg1 = 0;
                                 $avg2 = 0;
                                 $avg3 = 0;
+                                $CIE1 = 0;
+                                $CIE2 = 0;
+                                $CIE3 = 0;
+                                $MCQ = 0;
+                                $OPENBOOKTEST = 0;
+                                $activity = 0;
+                                $SKTEST1 = 0;
+                                $SKTEST2 = 0;
+                                $SKTEST3 = 0;
+                                $portfolio = 0;
+                                $maxMarks = 0;
                             ?>
                                 <tr>
                                     <td><?php echo $row[15]; ?></td>
                                     <td>
                                         <?php
                                         if ($row[3] !== '0,0') {
-                                            $CIECount = $CIECount + 1;
-                                            echo explode(',', $row[3])[1] . '/' . explode(',', $row[3])[0];
+                                            if ($row[3] !== '-1,-1') {
+                                                $CIECount = $CIECount + 1;
+                                                $maxMarks = explode(',', $row[3])[0];
+                                                $CIE1 = explode(',', $row[3])[1];
+                                                echo explode(',', $row[3])[1] . '/' . explode(',', $row[3])[0];
+                                            } else {
+                                                echo 'AB';
+                                            }
                                         } else {
                                             echo '-';
                                         }
@@ -221,8 +242,14 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <td>
                                         <?php
                                         if ($row[4] !== '0,0') {
-                                            $CIECount = $CIECount + 1;
-                                            echo explode(',', $row[4])[1] . '/' . explode(',', $row[4])[0];
+                                            if ($row[4] !== '-1,-1') {
+                                                $CIECount = $CIECount + 1;
+                                                $maxMarks = explode(',', $row[4])[0];
+                                                $CIE2 = explode(',', $row[4])[1];
+                                                echo explode(',', $row[4])[1] . '/' . explode(',', $row[4])[0];
+                                            } else {
+                                                echo 'AB';
+                                            }
                                         } else {
                                             echo '-';
                                         }
@@ -231,8 +258,14 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <td>
                                         <?php
                                         if ($row[5] !== '0,0') {
-                                            $CIECount = $CIECount + 1;
-                                            echo explode(',', $row[5])[1] . '/' . explode(',', $row[5])[0];
+                                            if ($row[5] !== '-1,-1') {
+                                                $CIECount = $CIECount + 1;
+                                                $maxMarks = explode(',', $row[5])[0];
+                                                $CIE3 = explode(',', $row[5])[1];
+                                                echo explode(',', $row[5])[1] . '/' . explode(',', $row[5])[0];
+                                            } else {
+                                                echo 'AB';
+                                            }
                                         } else {
                                             echo '-';
                                         }
@@ -240,10 +273,8 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     </td>
                                     <td>
                                         <?php
-                                        if ($row[3] !== '0,0') {
-                                            $avg1 = (explode(',', $row[3])[1] + explode(',', $row[4])[1] + explode(',', $row[5])[1]) / $CIECount;
-                                            echo round($avg1) . '/' . explode(',', $row[3])[0];
-                                        }
+                                        $avg1 = ($CIE1 + $CIE2 + $CIE3) / $CIECount;
+                                        echo round($avg1) . '/' . $maxMarks;
                                         ?>
                                     </td>
                                     <?php
@@ -252,8 +283,14 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                         <td>
                                             <?php
                                             if ($row[9] !== '0,0') {
-                                                $SKTestCount = $SKTestCount + 1;
-                                                echo explode(',', $row[9])[1] . '/' . explode(',', $row[9])[0];
+                                                if ($row[9] !== '-1,-1') {
+                                                    $SKTestCount = $SKTestCount + 1;
+                                                    $maxMarks = explode(',', $row[9])[0];
+                                                    $SKTEST1 = explode(',', $row[9])[1];
+                                                    echo explode(',', $row[9])[1] . '/' . explode(',', $row[9])[0];
+                                                } else {
+                                                    echo 'AB';
+                                                }
                                             } else {
                                                 echo '-';
                                             }
@@ -262,8 +299,14 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                         <td>
                                             <?php
                                             if ($row[10] !== '0,0') {
-                                                $SKTestCount = $SKTestCount + 1;
-                                                echo explode(',', $row[10])[1] . '/' . explode(',', $row[10])[0];
+                                                if ($row[10] !== '-1,-1') {
+                                                    $SKTestCount = $SKTestCount + 1;
+                                                    $maxMarks = explode(',', $row[10])[0];
+                                                    $SKTEST2 = explode(',', $row[10])[1];
+                                                    echo explode(',', $row[10])[1] . '/' . explode(',', $row[10])[0];
+                                                } else {
+                                                    echo 'AB';
+                                                }
                                             } else {
                                                 echo '-';
                                             }
@@ -271,8 +314,8 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                         </td>
                                         <td>
                                             <?php
-                                            if ($row[9] !== '0,0') {
-                                                $avg2 = (explode(',', $row[9])[1] + explode(',', $row[10])[1]) / $SKTestCount;
+                                            if ($SKTEST1 != 0 || $SKTEST2 != 0) {
+                                                $avg2 = ($SKTEST1 + $SKTEST2) / $SKTestCount;
                                                 echo round($avg2) . '/' . explode(',', $row[9])[0];
                                             } else {
                                                 echo '-';
@@ -288,8 +331,14 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                         <td>
                                             <?php
                                             if ($row[6] !== '0,0') {
-                                                $MCQCount = $MCQCount + 1;
-                                                echo explode(',', $row[6])[1] . '/' . explode(',', $row[6])[0];
+                                                if ($row[6] !== '-1,-1') {
+                                                    $MCQCount = $MCQCount + 1;
+                                                    $maxMarks = explode(',', $row[6])[0];
+                                                    $MCQ = explode(',', $row[6])[1];
+                                                    echo explode(',', $row[6])[1] . '/' . explode(',', $row[6])[0];
+                                                } else {
+                                                    echo 'AB';
+                                                }
                                             } else {
                                                 echo '-';
                                             }
@@ -298,8 +347,14 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                         <td>
                                             <?php
                                             if ($row[7] !== '0,0') {
-                                                $MCQCount = $MCQCount + 1;
-                                                echo explode(',', $row[7])[1] . '/' . explode(',', $row[7])[0];
+                                                if ($row[7] !== '-1,-1') {
+                                                    $MCQCount = $MCQCount + 1;
+                                                    $maxMarks = explode(',', $row[7])[0];
+                                                    $OPENBOOKTEST = explode(',', $row[7])[1];
+                                                    echo explode(',', $row[7])[1] . '/' . explode(',', $row[7])[0];
+                                                } else {
+                                                    echo 'AB';
+                                                }
                                             } else {
                                                 echo '-';
                                             }
@@ -308,8 +363,14 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                         <td>
                                             <?php
                                             if ($row[8] !== '0,0') {
-                                                $MCQCount = $MCQCount + 1;
-                                                echo explode(',', $row[8])[1] . '/' . explode(',', $row[8])[0];
+                                                if ($row[8] !== '-1,-1') {
+                                                    $MCQCount = $MCQCount + 1;
+                                                    $maxMarks = explode(',', $row[8])[0];
+                                                    $activity = explode(',', $row[8])[1];
+                                                    echo explode(',', $row[8])[1] . '/' . explode(',', $row[8])[0];
+                                                } else {
+                                                    echo 'AB';
+                                                }
                                             } else {
                                                 echo '-';
                                             }
@@ -333,16 +394,23 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <?php
                                     }
                                     ?>
-                                    <td>
-                                        <?php
-                                        if ($row[6] !== '0,0' || $row[7] !== '0,0' || $row[8] !== '0,0') {
-                                            $avg3 = (explode(',', $row[6])[1] + explode(',', $row[7])[1] + explode(',', $row[8])[1]) / $MCQCount;
-                                            echo round($avg3) . '/' . explode(',', $row[6])[0];
-                                        } else {
-                                            echo '-';
-                                        }
-                                        ?>
-                                    </td>
+
+                                    <?php
+                                    if ($_GET['sem'] == 1 || $_GET['sem'] == 2) {
+                                    ?>
+                                        <td>
+                                            <?php
+                                            if ($row[6] !== '0,0' || $row[7] !== '0,0' || $row[8] !== '0,0') {
+                                                $avg3 = ($MCQ + $OPENBOOKTEST + $activity) / $MCQCount;
+                                                echo round($avg3) . '/' . $maxMarks;
+                                            } else {
+                                                echo '-';
+                                            }
+                                            ?>
+                                        </td>
+                                    <?php
+                                    }
+                                    ?>
                                     <td>
                                         <?php
                                         if ($_GET['sem'] == 1 || $_GET['sem'] == 2) {
@@ -371,11 +439,12 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr class="bg-danger text-light">
-                                    <th scope="col">Subject Id</th>
+                                    <th scope="col">Course Code</th>
                                     <th scope="col">Subject Name</th>
                                     <th scope="col">Month</th>
                                     <th scope="col">Total Classes</th>
                                     <th scope="col">Classes Attended</th>
+                                    <th scope="col">Percentage</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -390,6 +459,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                         <td><?php echo $row[5]; ?></td>
                                         <td><?php echo $row[3]; ?></td>
                                         <td><?php echo $row[4]; ?></td>
+                                        <td><?php echo round(($row[4] / $row[3]) * 100) . '%'; ?></td>
                                     </tr>
                                 <?php
                                 }
@@ -422,7 +492,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr class="bg-danger text-light">
-                                                <th scope="col">Subject Id</th>
+                                                <th scope="col">Course Code</th>
                                                 <th scope="col">Subject Name</th>
                                                 <th scope="col">Total Marks</th>
                                                 <th scope="col">Obtained Marks</th>
@@ -438,8 +508,8 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                                 <tr>
                                                     <th scope="row"><?php echo $row[1]; ?></th>
                                                     <td><?php echo $row[8]; ?></td>
-                                                    <td><?php echo $row[2]; ?></td>
-                                                    <td><?php echo $row[3]; ?></td>
+                                                    <td><?php echo $row[2] == -1 ? 'AB' : $row[2]; ?></td>
+                                                    <td><?php echo $row[3] == -1 ? 'AB' : $row[3]; ?></td>
                                                     <td><?php echo $row[9]; ?></td>
                                                 </tr>
                                             <?php
@@ -465,7 +535,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr class="bg-danger text-light">
-                                                <th scope="col">Subject Id</th>
+                                                <th scope="col">Course Code</th>
                                                 <th scope="col">Subject Name</th>
                                                 <th scope="col">Total Classes</th>
                                                 <th scope="col">Classes Attended</th>
@@ -481,8 +551,8 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                                 <tr>
                                                     <th scope="row"><?php echo $row[1]; ?></th>
                                                     <td><?php echo $row[8]; ?></td>
-                                                    <td><?php echo $row[3]; ?></td>
-                                                    <td><?php echo $row[4]; ?></td>
+                                                    <td><?php echo $row[3] == -1 ? 'AB' : $row[3]; ?></td>
+                                                    <td><?php echo $row[4] == -1 ? 'AB' : $row[4]; ?></td>
                                                     <td><?php echo $row[9]; ?></td>
                                                 </tr>
                                             <?php
@@ -513,7 +583,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr class="bg-danger text-light">
-                                                <th scope="col">Subject Id</th>
+                                                <th scope="col">Course Code</th>
                                                 <th scope="col">Subject Name</th>
                                                 <th scope="col">Total Marks</th>
                                                 <th scope="col">Obtained Marks</th>
@@ -529,8 +599,8 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                                 <tr>
                                                     <th scope="row"><?php echo $row[1]; ?></th>
                                                     <td><?php echo $row[8]; ?></td>
-                                                    <td><?php echo $row[2]; ?></td>
-                                                    <td><?php echo $row[3]; ?></td>
+                                                    <td><?php echo $row[2] == -1 ? 'AB' : $row[2]; ?></td>
+                                                    <td><?php echo $row[3] == -1 ? 'AB' : $row[3]; ?></td>
                                                     <td><?php echo $row[9]; ?></td>
                                                 </tr>
                                             <?php
@@ -556,7 +626,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr class="bg-danger text-light">
-                                                <th scope="col">Subject Id</th>
+                                                <th scope="col">Course Code</th>
                                                 <th scope="col">Subject Name</th>
                                                 <th scope="col">Total Classes</th>
                                                 <th scope="col">Classes Attended</th>
@@ -604,7 +674,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr class="bg-danger text-light">
-                                                <th scope="col">Subject Id</th>
+                                                <th scope="col">Course Code</th>
                                                 <th scope="col">Subject Name</th>
                                                 <th scope="col">Total Marks</th>
                                                 <th scope="col">Obtained Marks</th>
@@ -647,7 +717,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr class="bg-danger text-light">
-                                                <th scope="col">Subject Id</th>
+                                                <th scope="col">Course Code</th>
                                                 <th scope="col">Subject Name</th>
                                                 <th scope="col">Total Classes</th>
                                                 <th scope="col">Classes Attended</th>
@@ -695,7 +765,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr class="bg-danger text-light">
-                                                <th scope="col">Subject Id</th>
+                                                <th scope="col">Course Code</th>
                                                 <th scope="col">Subject Name</th>
                                                 <th scope="col">Total Marks</th>
                                                 <th scope="col">Obtained Marks</th>
@@ -739,7 +809,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr class="bg-danger text-light">
-                                            <th scope="col">Subject Id</th>
+                                            <th scope="col">Course Code</th>
                                             <th scope="col">Subject Name</th>
                                             <th scope="col">Total Classes</th>
                                             <th scope="col">Classes Attended</th>

@@ -127,11 +127,6 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                         <td>: </td>
                         <td class="text-muted font-weight-bold"><?php echo $row[14];; ?></td>
                     </tr>
-                    <tr>
-                        <td class="font-weight-bold">Faculty Name</td>
-                        <td>: </td>
-                        <td class="text-muted font-weight-bold"><?php echo $_SESSION['userData'][1] . ' ' . $_SESSION['userData'][2]; ?></td>
-                    </tr>
                 </table>
             </div>
             <div class="col-md-4">
@@ -373,7 +368,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr class="bg-danger text-light">
-                                    <th scope="col">Subject Id</th>
+                                    <th scope="col">Course Code</th>
                                     <th scope="col">Subject Name</th>
                                     <th scope="col">Month</th>
                                     <th scope="col">Total Classes</th>
@@ -407,47 +402,6 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
             <?php
             } else {
             ?>
-                <div class="mt-3 mb-3">
-                    <div class="card">
-                        <p class="card-header font-weight-bold text-danger">Filter By</p>
-                        <div class="card-body col-md-4">
-                            <table cellpadding="5" class="mb-2">
-                                <tr>
-                                    <td class="font-weight-bold">Name</td>
-                                    <td>: </td>
-                                    <td>Basavaraj</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-bold">Register Number</td>
-                                    <td>: </td>
-                                    <td>202</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-bold">Semester</td>
-                                    <td>: </td>
-                                    <td><?php echo !isset($_GET['sem']) ? 'All' : $_GET['sem']; ?></td>
-                                </tr>
-                                <tr>
-                                    <td class="font-weight-bold">Branch</td>
-                                    <td>: </td>
-                                    <td>Computer Science</td>
-                                </tr>
-                            </table>
-                            <div class="form-group">
-                                <label for="sem">Select Semester</label>
-                                <select class="form-control" id="sem" name="sem" onchange="onSelectSemester(event)" required>
-                                    <option value="">--Semester--</option>
-                                    <option value="1" <?php echo isset($_GET['sem']) && $_GET['sem'] === '1' ? 'selected' : ''; ?>>1st Sem</option>
-                                    <option value="2" <?php echo isset($_GET['sem']) && $_GET['sem'] === '2' ? 'selected' : ''; ?>>2nd Sem</option>
-                                    <option value="3" <?php echo isset($_GET['sem']) && $_GET['sem'] === '3' ? 'selected' : ''; ?>>3rd Sem</option>
-                                    <option value="4" <?php echo isset($_GET['sem']) && $_GET['sem'] === '4' ? 'selected' : ''; ?>>4th Sem</option>
-                                    <option value="5" <?php echo isset($_GET['sem']) && $_GET['sem'] === '5' ? 'selected' : ''; ?>>5th Sem</option>
-                                    <option value="6" <?php echo isset($_GET['sem']) && $_GET['sem'] === '6' ? 'selected' : ''; ?>>6th Sem</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="row">
                     <div class="col-md-12 mt-3">
                         <div class="card">
@@ -465,7 +419,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr class="bg-danger text-light">
-                                                <th scope="col">Subject Id</th>
+                                                <th scope="col">Course Code</th>
                                                 <th scope="col">Subject Name</th>
                                                 <th scope="col">Total Marks</th>
                                                 <th scope="col">Obtained Marks</th>
@@ -508,7 +462,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr class="bg-danger text-light">
-                                                <th scope="col">Subject Id</th>
+                                                <th scope="col">Course Code</th>
                                                 <th scope="col">Subject Name</th>
                                                 <th scope="col">Total Classes</th>
                                                 <th scope="col">Classes Attended</th>
@@ -556,7 +510,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr class="bg-danger text-light">
-                                                <th scope="col">Subject Id</th>
+                                                <th scope="col">Course Code</th>
                                                 <th scope="col">Subject Name</th>
                                                 <th scope="col">Total Marks</th>
                                                 <th scope="col">Obtained Marks</th>
@@ -599,7 +553,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr class="bg-danger text-light">
-                                                <th scope="col">Subject Id</th>
+                                                <th scope="col">Course Code</th>
                                                 <th scope="col">Subject Name</th>
                                                 <th scope="col">Total Classes</th>
                                                 <th scope="col">Classes Attended</th>
@@ -647,7 +601,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr class="bg-danger text-light">
-                                                <th scope="col">Subject Id</th>
+                                                <th scope="col">Course Code</th>
                                                 <th scope="col">Subject Name</th>
                                                 <th scope="col">Total Marks</th>
                                                 <th scope="col">Obtained Marks</th>
@@ -690,7 +644,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr class="bg-danger text-light">
-                                                <th scope="col">Subject Id</th>
+                                                <th scope="col">Course Code</th>
                                                 <th scope="col">Subject Name</th>
                                                 <th scope="col">Total Classes</th>
                                                 <th scope="col">Classes Attended</th>
@@ -738,7 +692,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr class="bg-danger text-light">
-                                                <th scope="col">Subject Id</th>
+                                                <th scope="col">Course Code</th>
                                                 <th scope="col">Subject Name</th>
                                                 <th scope="col">Total Marks</th>
                                                 <th scope="col">Obtained Marks</th>
@@ -782,7 +736,7 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr class="bg-danger text-light">
-                                            <th scope="col">Subject Id</th>
+                                            <th scope="col">Course Code</th>
                                             <th scope="col">Subject Name</th>
                                             <th scope="col">Total Classes</th>
                                             <th scope="col">Classes Attended</th>

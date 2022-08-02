@@ -1,10 +1,11 @@
 <?php
 
 session_start();
-include('./department_header.php');
+include('./faculty_header.php');
 include('../db/dbcon.php');
 
-$result = mysqli_query($con, "SELECT * FROM `students_list` WHERE `dept_id` = '$_SESSION[deptId]'") or die(mysqli_error($con));
+$deptId = $_SESSION['userData'][3];
+$result = mysqli_query($con, "SELECT * FROM `subjects_count` WHERE `deptId` = '$deptId'") or die(mysqli_error($con));
 $seminar_hall_count = mysqli_num_rows($result);
 
 
@@ -17,14 +18,17 @@ $seminar_hall_count = mysqli_num_rows($result);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Department - Faculties List</title>
+    <title>Faculty - Subjects count</title>
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="row mt-3">
             <div class="col-md-8">
-                <p class="page-title font-weight-bold text-success m-0">Students List</p>
+                <p class="page-title font-weight-bold text-success m-0">Subjects Count</p>
+            </div>
+            <div class="col-md-4 text-right">
+                <a href="./create_subjects_count.php" class="btn btn-sm btn-success font-weight-bold">Create Subject Count</a>
             </div>
         </div>
         <div class="mt-4">
@@ -33,7 +37,7 @@ $seminar_hall_count = mysqli_num_rows($result);
             ?>
                 <div class="text-center">
                     <img src="./../images/no-data.png" alt="No Data" width="300px">
-                    <p class="text-muted font-weight-bold m-0">No Students found</p>
+                    <p class="text-muted font-weight-bold m-0">No Subject count found</p>
                 </div>
             <?php
             } else {
@@ -42,11 +46,10 @@ $seminar_hall_count = mysqli_num_rows($result);
                     <thead>
                         <tr class="bg-danger text-light">
                             <th scope="col">#</th>
-                            <th scope="col">Student Id</th>
-                            <th scope="col">Full Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Mobile</th>
-                            <th scope="col">View</th>
+                            <th scope="col">Semester</th>
+                            <th scope="col">Total Number Of Subjects</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,10 +61,9 @@ $seminar_hall_count = mysqli_num_rows($result);
                             <tr>
                                 <th scope="row"><?php echo $count; ?></th>
                                 <td><?php echo $row[1]; ?></td>
-                                <td><?php echo $row[2]; ?> <?php echo $row[3]; ?></td>
-                                <td><?php echo $row[4]; ?></td>
-                                <td><?php echo $row[5]; ?></td>
-                                <td><a href="./view_student.php?id=<?php echo $row[1]; ?>&sem=<?php echo $row[9]; ?>" class="badge badge-success">view</a></td>
+                                <td><?php echo $row[2]; ?></td>
+                                <td><a href="./update_subjects_count.php?id=<?php echo $row[0]; ?>" class="badge badge-success">Edit</a></td>
+                                <td><a href="./subjects_count.php?id=<?php echo $row[0]; ?>" class="badge badge-danger">Delete</a></td>
                             </tr>
                         <?php
                         }
@@ -80,19 +82,20 @@ $seminar_hall_count = mysqli_num_rows($result);
 <?php
 
 if (isset($_GET['id'])) {
-    $delete_query = "DELETE FROM `students_list` WHERE `students_list`.`id` = $_GET[id]";
+    $delete_query = "DELETE FROM `parent_connect`.`subjects_count` WHERE `subjects_count`.`id` = $_GET[id]";
     if (mysqli_query($con, $delete_query)) {
 ?>
         <script>
-            alert('Student has been deleted successfully!');
-            document.location = './students_list.php';
+            alert('Subjects Count has been deleted successfully!');
+            document.location = './subjects_count.php';
         </script>
     <?php
     } else {
+        die(mysqli_error($con));
     ?>
         <script>
             alert('Something went wrong!');
-            document.location = './students_list.php';
+            // document.location = './subjects.php';
         </script>
 <?php
     }

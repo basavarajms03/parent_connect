@@ -30,8 +30,8 @@ $row = mysqli_fetch_array($result);
             <div class="row mt-3">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="subjectId">Subject Id</label>
-                        <input type="text" value="<?php echo $row[1]; ?>" class="form-control" name="subjectId" id="subjectId" placeholder="Enter Subject Id" required>
+                        <label for="subjectId">Course Code</label>
+                        <input type="text" value="<?php echo $row[1]; ?>" class="form-control" name="subjectId" id="subjectId" placeholder="Enter Course Code" required>
                     </div>
                 </div>
                 <div class="col-md-6">

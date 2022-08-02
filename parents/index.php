@@ -26,10 +26,10 @@ include('../db/dbcon.php');
         <div class="col-md-4">
             <form action="" method="post" autocomplete="off">
                 <h3 class="font-weight-bold">
-                    <p class="text-center">Student Login</p>
+                    <p class="text-center">Parent Login</p>
                 </h3>
                 <div class="form-group">
-                    <label for="studentId">Student Register Number</label>
+                    <label for="studentId">Register Number</label>
                     <input type="text" class="form-control" name="studentId" id="studentId" aria-describedby="emailHelp" placeholder="Enter Student Register Number">
                 </div>
                 <div class="form-group">

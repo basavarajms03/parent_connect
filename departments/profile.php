@@ -3,8 +3,9 @@
 session_start();
 include('./department_header.php');
 include('../db/dbcon.php');
+$id = $_SESSION['userData'][0];
 
-$result = mysqli_query($con, "SELECT * FROM `departments` WHERE `deptId`=$_SESSION[deptId]") or die(mysqli_error($con));
+$result = mysqli_query($con, "SELECT * FROM `departments` WHERE `deptId`='$_SESSION[deptId]'") or die(mysqli_error($con));
 $row = mysqli_fetch_array($result);
 
 
@@ -40,7 +41,7 @@ $row = mysqli_fetch_array($result);
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="departmentId">Department Id</label>
-                                        <input type="text" readonly class="form-control" name="departmentId" value="<?php echo $row[1]; ?>" id="departmentId" placeholder="Enter Department Id" required>
+                                        <input type="text" class="form-control" name="departmentId" value="<?php echo $row[1]; ?>" id="departmentId" placeholder="Enter Department Id" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -90,10 +91,16 @@ $row = mysqli_fetch_array($result);
 </html>
 
 <?php
-
 if (isset($_POST['submit'])) {
-    $insert_query = "UPDATE `departments` SET `department_name` = '$_POST[deptName]' WHERE `departments`.`deptId` = $_SESSION[deptId]";
+    $insert_query = "UPDATE `departments` SET `department_name` = '$_POST[deptName]',
+     `deptId` = '$_POST[departmentId]' 
+    WHERE `departments`.`id` = $id";
     if (mysqli_query($con, $insert_query)) {
+        $check_query = "SELECT * FROM  `departments` WHERE `id` = '$id'";
+        $check_result = mysqli_query($con, $check_query);
+        $check_rows = mysqli_fetch_array($check_result);
+        $_SESSION['userData'] = $check_rows;
+        $_SESSION['deptId'] = $_POST['departmentId'];
 ?>
         <script>
             alert('Department has been updated successfully!');
@@ -101,10 +108,11 @@ if (isset($_POST['submit'])) {
         </script>
     <?php
     } else {
+        die(mysqli_error($con));
     ?>
         <script>
             alert('Something went wrong!');
-            document.location = './profile.php';
+            // document.location = './profile.php';
         </script>
 <?php
     }
@@ -115,7 +123,8 @@ if (isset($_POST['submit'])) {
 <?php
 
 if (isset($_POST['update'])) {
-    $insert_query = "UPDATE `users` SET `password` = '$_POST[password]' WHERE `users`.`deptId` = $_SESSION[deptId]";
+    $insert_query = "UPDATE `departments` 
+    SET `password` = '$_POST[password]' WHERE `departments`.`deptId` = $_SESSION[deptId]";
     if (mysqli_query($con, $insert_query)) {
 ?>
         <script>
@@ -124,10 +133,10 @@ if (isset($_POST['update'])) {
         </script>
     <?php
     } else {
+        die(mysqli_error($con));
     ?>
         <script>
             alert('Something went wrong!');
-            document.location = './profile.php';
         </script>
 <?php
     }

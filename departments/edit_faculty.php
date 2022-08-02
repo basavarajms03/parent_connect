@@ -55,7 +55,8 @@ $faculty_row = mysqli_fetch_array($result);
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="number">Mobile Number</label>
-                        <input type="number" class="form-control" value="<?php echo $faculty_row[6] ?>" name="number" id="number" placeholder="Mobile Number" required>
+                        <input type="text" maxlength="10" pattern="\d{10}" value="<?php echo $faculty_row[6] ?>" title="Please enter exactly 10 digits" class="form-control" name="number" id="number" placeholder="Mobile Number" required>
+                        <small class="text-muted">Please enter only digits</small>
                     </div>
                 </div>
                 <div class="col-md-12 text-right mb-5">
@@ -70,12 +71,11 @@ $faculty_row = mysqli_fetch_array($result);
 </html>
 
 <?php
-
 if (isset($_POST['submit'])) {
 
     $result = mysqli_query($con, "SELECT * FROM `faculties` WHERE `faculty_id`='$_POST[facultyId]'") or die(mysqli_error($con));
     $count = mysqli_num_rows($result);
-    if ($count > 0 && $row[4] !== $_POST['facultyId']) {
+    if ($count > 0 && $faculty_row[4] != $_POST['facultyId']) {
 ?>
         <script>
             alert('Faculty is already exist in the entered Register Number!');
