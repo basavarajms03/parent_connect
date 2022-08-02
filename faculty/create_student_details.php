@@ -472,7 +472,7 @@ function sendSms($info)
     curl_setopt($x, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($x, CURLOPT_SSL_VERIFYPEER, false);
     curl_setopt($x, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-    curl_setopt($x, CURLOPT_USERPWD, "ACd74689a87b8ac60065964001b26556a5:51dfc270cdd89f7f17a04d65ad7bc545");
+    curl_setopt($x, CURLOPT_USERPWD, "ACd74689a87b8ac60065964001b26556a5:6a4a0e6cee6d3cb7131fefcb9eb49a75");
     curl_setopt($x, CURLOPT_POSTFIELDS, $post);
     $y = curl_exec($x);
     curl_close($x);

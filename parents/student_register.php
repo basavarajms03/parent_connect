@@ -55,7 +55,7 @@ $result = mysqli_query($con, $departments_query);
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="studentMobile">Student Mobile Number</label>
-                        <input type="number" class="form-control" name="studentMobile" id="studentMobile" placeholder="Student Phone Number" required>
+                        <input type="text" maxlength="10" pattern="\d{10}" title="Please enter exactly 10 digits" class="form-control" name="studentMobile" id="studentMobile" placeholder="Student Phone Number" required>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -73,7 +73,7 @@ $result = mysqli_query($con, $departments_query);
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="fatherMobile">Father Mobile Number</label>
-                        <input type="number" class="form-control" name="fatherMobile" id="fatherMobile" placeholder="Student Phone Number" required>
+                        <input type="text" maxlength="10" pattern="\d{10}" title="Please enter exactly 10 digits" class="form-control" name="fatherMobile" id="fatherMobile" placeholder="Student Phone Number" required>
                     </div>
                 </div>
                 <div class="col-md-4">

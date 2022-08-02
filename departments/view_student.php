@@ -332,8 +332,12 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
                                     </td>
                                     <td>
                                         <?php
-                                        $avg1 = ($CIE1 + $CIE2 + $CIE3) / $CIECount;
-                                        echo round($avg1) . '/' . $maxMarks;
+                                        if ($CIE1 != 0 || $CIE2 != 0 || $CIE3 != 0) {
+                                            $avg1 = ($CIE1 + $CIE2 + $CIE3) / $CIECount;
+                                            echo round($avg1) . '/' . $maxMarks;
+                                        } else {
+                                            echo '-';
+                                        }
                                         ?>
                                     </td>
                                     <?php
@@ -910,6 +914,6 @@ if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
 
 <script>
     function onSelectSemester(event) {
-        document.location = "./student_details.php?id=<?php echo $_GET['id']; ?>&&sem=" + event.target.value;
+        document.location = "./view_student.php?id=<?php echo $_GET['id']; ?>&&sem=" + event.target.value;
     }
 </script>
