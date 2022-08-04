@@ -65,6 +65,7 @@ include('../db/dbcon.php');
 
 if (isset($_POST['submit'])) {
     $deptId = $_SESSION['userData'][3];
+    $facultyId = $_SESSION['userData'][4];
     $subjectId = $_POST['subjectId'];
     $subjectName = $_POST['subjectName'];
     $semester = $_POST['sem'];
@@ -79,8 +80,8 @@ if (isset($_POST['submit'])) {
         <?php
     } else {
         $insert_query = "INSERT INTO `subjects` 
-        (`id`, `subjectId`, `subjectName`, `semester`, `deptId`) 
-        VALUES (NULL, '$subjectId', '$subjectName', '$semester', '$deptId')";
+        (`id`, `subjectId`, `subjectName`, `semester`, `deptId`, `facultyId`) 
+        VALUES (NULL, '$subjectId', '$subjectName', '$semester', '$deptId', '$facultyId')";
         if (mysqli_query($con, $insert_query)) {
         ?>
             <script>

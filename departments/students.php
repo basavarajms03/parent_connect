@@ -4,9 +4,14 @@ session_start();
 include('./department_header.php');
 include('../db/dbcon.php');
 
-$result = mysqli_query($con, "SELECT * FROM `students_list` WHERE `dept_id` = '$_SESSION[deptId]'") or die(mysqli_error($con));
-$seminar_hall_count = mysqli_num_rows($result);
-
+$deptId = $_SESSION['userData'][3];
+if (isset($_GET['sem'])) {
+    $result = mysqli_query($con, "SELECT * FROM `students_list` WHERE `dept_id` = '$deptId' and `semester`='$_GET[sem]'") or die(mysqli_error($con));
+    $seminar_hall_count = mysqli_num_rows($result);
+} else {
+    $result = mysqli_query($con, "SELECT * FROM `students_list` WHERE `dept_id` = '$deptId'") or die(mysqli_error($con));
+    $seminar_hall_count = mysqli_num_rows($result);
+}
 
 ?>
 
@@ -25,6 +30,19 @@ $seminar_hall_count = mysqli_num_rows($result);
         <div class="row mt-3">
             <div class="col-md-8">
                 <p class="page-title font-weight-bold text-success m-0">Students List</p>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <select class="form-control" id="sem" name="sem" onchange="onSelectSemester(event)" required>
+                        <option value="">--Semester--</option>
+                        <option value="1" <?php echo isset($_GET['sem']) && $_GET['sem'] === '1' ? 'selected' : ''; ?>>1st Sem</option>
+                        <option value="2" <?php echo isset($_GET['sem']) && $_GET['sem'] === '2' ? 'selected' : ''; ?>>2nd Sem</option>
+                        <option value="3" <?php echo isset($_GET['sem']) && $_GET['sem'] === '3' ? 'selected' : ''; ?>>3rd Sem</option>
+                        <option value="4" <?php echo isset($_GET['sem']) && $_GET['sem'] === '4' ? 'selected' : ''; ?>>4th Sem</option>
+                        <option value="5" <?php echo isset($_GET['sem']) && $_GET['sem'] === '5' ? 'selected' : ''; ?>>5th Sem</option>
+                        <option value="6" <?php echo isset($_GET['sem']) && $_GET['sem'] === '6' ? 'selected' : ''; ?>>6th Sem</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="mt-4">
@@ -97,3 +115,15 @@ if (isset($_GET['id'])) {
 <?php
     }
 }
+
+?>
+
+<script>
+    function onSelectSemester(event) {
+        if (event.target.value) {
+            document.location = "./students.php?sem=" + event.target.value;
+        } else {
+            document.location = "./students.php";
+        }
+    }
+</script>

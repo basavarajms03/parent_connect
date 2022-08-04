@@ -4,6 +4,7 @@ include('./faculty_header.php');
 include('../db/dbcon.php');
 
 $deptId = $_SESSION['userData'][3];
+$facultyId = $_SESSION['userData'][4];
 $subjects = mysqli_query($con, "SELECT * FROM `subjects` WHERE `deptId` = '$deptId'") or die(mysqli_error($con));
 $subjects_two = mysqli_query($con, "SELECT * FROM `subjects` WHERE `deptId` = '$deptId'") or die(mysqli_error($con));
 
@@ -14,76 +15,76 @@ $fPhoneNumber = $row[11];
 
 if ($_GET['sem'] != 5 && $_GET['sem'] != 6) {
     $student_marks_details = mysqli_query($con, "SELECT * FROM `student_marks_details` m, `subjects` s
- WHERE m.`student_id` = '$_GET[id]' and s.`subjectId` = m.`subjectId` and s.`semester` = $_GET[sem]") or die(mysqli_error($con));
+ WHERE m.`student_id` = '$_GET[id]' and s.`subjectId` = m.`subjectId` and s.`semester` = $_GET[sem] and `facultyId`='$facultyId'") or die(mysqli_error($con));
     $student_marks_details_count = mysqli_num_rows($student_marks_details);
 
     $attendance = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
-    WHERE a.`student_id` = '$_GET[id]' and s.`subjectId` = a.`subjectId`and s.`semester` = $_GET[sem]") or die(mysqli_error($con));
+    WHERE a.`student_id` = '$_GET[id]' and s.`subjectId` = a.`subjectId`and s.`semester` = $_GET[sem] and `facultyId`='$facultyId'") or die(mysqli_error($con));
     $attendance_count = mysqli_num_rows($attendance);
 } else {
     $first_internal = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
-    WHERE m.`student_id` = '$_GET[id]' and m.`marks_type`=1 and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
+    WHERE m.`student_id` = '$_GET[id]' and m.`marks_type`=1 and s.`subjectId` = m.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
     $first_internal_count = mysqli_num_rows($first_internal);
 
     $attendance = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
-    WHERE a.`student_id` = '$_GET[id]' and a.`attendance_type`=1 and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
+    WHERE a.`student_id` = '$_GET[id]' and a.`attendance_type`=1 and s.`subjectId` = a.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
     $attendance_count = mysqli_num_rows($attendance);
 
     $second_internal = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
-    WHERE m.`student_id` = '$_GET[id]' and m.`marks_type`=2 and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
+    WHERE m.`student_id` = '$_GET[id]' and m.`marks_type`=2 and s.`subjectId` = m.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
     $second_internal_count = mysqli_num_rows($second_internal);
 
     $attendance_second = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
-    WHERE a.`student_id` = '$_GET[id]' and a.`attendance_type`=2 and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
+    WHERE a.`student_id` = '$_GET[id]' and a.`attendance_type`=2 and s.`subjectId` = a.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
     $attendance_second_count = mysqli_num_rows($attendance_second);
 
     $third_internal = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
-    WHERE m.`student_id` = '$_GET[id]' and m.`marks_type`=3 and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
+    WHERE m.`student_id` = '$_GET[id]' and m.`marks_type`=3 and s.`subjectId` = m.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
     $third_internal_count = mysqli_num_rows($third_internal);
 
     $attendance_third = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
-    WHERE a.`student_id` = '$_GET[id]' and a.`attendance_type`=3 and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
+    WHERE a.`student_id` = '$_GET[id]' and a.`attendance_type`=3 and s.`subjectId` = a.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
     $attendance_third_count = mysqli_num_rows($attendance_third);
 
     $final_sem = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
-    WHERE m.`student_id` = '$_GET[id]' and m.`marks_type`='finalSem' and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
+    WHERE m.`student_id` = '$_GET[id]' and m.`marks_type`='finalSem' and s.`subjectId` = m.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
     $final_sem_count = mysqli_num_rows($final_sem);
 
     $attendance_final = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
-    WHERE a.`student_id` = '$_GET[id]' and a.`attendance_type`='finalSem' and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
+    WHERE a.`student_id` = '$_GET[id]' and a.`attendance_type`='finalSem' and s.`subjectId` = a.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
     $attendance_final_count = mysqli_num_rows($attendance_final);
 
     if (isset($_GET['sem'])) {
         $first_internal = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
-    WHERE m.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem] and m.`marks_type`=1 and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
+    WHERE m.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem] and m.`marks_type`=1 and s.`subjectId` = m.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
         $first_internal_count = mysqli_num_rows($first_internal);
 
         $attendance = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
-    WHERE a.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem]  and a.`attendance_type`=1 and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
+    WHERE a.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem]  and a.`attendance_type`=1 and s.`subjectId` = a.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
         $attendance_count = mysqli_num_rows($attendance);
 
         $second_internal = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
-    WHERE m.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem]  and m.`marks_type`=2 and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
+    WHERE m.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem]  and m.`marks_type`=2 and s.`subjectId` = m.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
         $second_internal_count = mysqli_num_rows($second_internal);
 
         $attendance_second = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
-    WHERE a.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem]  and a.`attendance_type`=2 and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
+    WHERE a.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem]  and a.`attendance_type`=2 and s.`subjectId` = a.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
         $attendance_second_count = mysqli_num_rows($attendance_second);
 
         $third_internal = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
-    WHERE m.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem]  and m.`marks_type`=3 and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
+    WHERE m.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem]  and m.`marks_type`=3 and s.`subjectId` = m.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
         $third_internal_count = mysqli_num_rows($third_internal);
 
         $attendance_third = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
-    WHERE a.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem]  and a.`attendance_type`=3 and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
+    WHERE a.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem]  and a.`attendance_type`=3 and s.`subjectId` = a.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
         $attendance_third_count = mysqli_num_rows($attendance_third);
 
         $final_sem = mysqli_query($con, "SELECT * FROM `marks_details` m, `subjects` s
-    WHERE m.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem]  and m.`marks_type`='finalSem' and s.`subjectId` = m.`subjectId`") or die(mysqli_error($con));
+    WHERE m.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem]  and m.`marks_type`='finalSem' and s.`subjectId` = m.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
         $final_sem_count = mysqli_num_rows($final_sem);
 
         $attendance_final = mysqli_query($con, "SELECT * FROM `attendance` a, `subjects` s
-    WHERE a.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem]  and a.`attendance_type`='finalSem' and s.`subjectId` = a.`subjectId`") or die(mysqli_error($con));
+    WHERE a.`student_id` = '$_GET[id]' and s.`semester` = $_GET[sem]  and a.`attendance_type`='finalSem' and s.`subjectId` = a.`subjectId` and `facultyId`='$facultyId'") or die(mysqli_error($con));
         $attendance_final_count = mysqli_num_rows($attendance_final);
     }
 }

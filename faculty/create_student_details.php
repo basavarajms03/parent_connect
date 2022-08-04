@@ -3,10 +3,11 @@
 session_start();
 include('./faculty_header.php');
 include('../db/dbcon.php');
+$facultyId = $_SESSION['userData'][4];
 
 $deptId = $_SESSION['userData'][3];
-$subjects = mysqli_query($con, "SELECT * FROM `subjects` WHERE `deptId` = '$deptId'") or die(mysqli_error($con));
-$subjects_two = mysqli_query($con, "SELECT * FROM `subjects` WHERE `deptId` = '$deptId'") or die(mysqli_error($con));
+$subjects = mysqli_query($con, "SELECT * FROM `subjects` WHERE `deptId` = '$deptId' and `facultyId`='$facultyId'") or die(mysqli_error($con));
+$subjects_two = mysqli_query($con, "SELECT * FROM `subjects` WHERE `deptId` = '$deptId' and `facultyId`='$facultyId'") or die(mysqli_error($con));
 
 $result = mysqli_query($con, "SELECT * FROM `students_list` WHERE `roll_no` = '$_GET[id]'") or die(mysqli_error($con));
 $row = mysqli_fetch_array($result);
@@ -243,7 +244,7 @@ if (isset($_POST['submit'])) {
                     $smsBody .= $student_details;
                     while ($row = mysqli_fetch_array($student_marks_details)) {
                         if ($row[5] !== '-1,-1') {
-                            $smsBody .= "$row[2]" . " = " . explode(',', $row[5])[1] . '/' . explode(',', $row[5])[0] . "
+                            $smsBody .= "$row[2]" . " = " . explode(',', $row[6])[1] . '/' . explode(',', $row[6])[0] . "
                             ";
                         } else {
                             $smsBody .= "$row[2]" . " = AB
@@ -291,7 +292,7 @@ if (isset($_POST['submit'])) {
                     $smsBody .= $student_details;
                     while ($row = mysqli_fetch_array($student_marks_details)) {
                         if ($row[5] !== '-1,-1') {
-                            $smsBody .= "$row[2]" . " = " . explode(',', $row[5])[1] . '/' . explode(',', $row[5])[0] . "
+                            $smsBody .= "$row[2]" . " = " . explode(',', $row[6])[1] . '/' . explode(',', $row[6])[0] . "
                             ";
                         } else {
                             $smsBody .= "$row[2]" . " = AB

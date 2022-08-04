@@ -5,7 +5,8 @@ include('./faculty_header.php');
 include('../db/dbcon.php');
 
 $deptId = $_SESSION['userData'][3];
-$result = mysqli_query($con, "SELECT * FROM `subjects` WHERE `deptId` = '$deptId'") or die(mysqli_error($con));
+$facultyId = $_SESSION['userData'][4];
+$result = mysqli_query($con, "SELECT * FROM `subjects` WHERE `deptId` = '$deptId' and `facultyId`='$facultyId'") or die(mysqli_error($con));
 $seminar_hall_count = mysqli_num_rows($result);
 
 
