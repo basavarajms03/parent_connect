@@ -80,7 +80,6 @@ Semester:' . $row[9] . '
                                                 <option value="SKTEST2">Skill Test Pr 2</option>
                                                 <option value="SKTEST3">Skill Test Pr 3</option>
                                                 <option value="portfolio">Portfolio</option>
-                                                <option value="finalSem">Final Sem</option>
                                             </select>
                                         </div>
                                     </div>
