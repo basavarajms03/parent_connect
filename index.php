@@ -44,7 +44,7 @@ include('./db/dbcon.php');
                     <a class="nav-link" href="#">Home </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
+                    <a class="nav-link" href="#about">About</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./departments/index.php">Department Login</a>
@@ -56,13 +56,13 @@ include('./db/dbcon.php');
                     <a class="nav-link" href="./parents/">Parent Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact </a>
+                    <a class="nav-link" href="#contact">Contact </a>
                 </li>
             </ul>
         </div>
     </nav>
 </body>
-<div class="container mt-3">
+<div class="container mt-3 mb-5">
     <div class="row">
         <div class="col-md-2">
             <img src="./images/1568389948615.jpg" width="100%" />
@@ -100,6 +100,46 @@ include('./db/dbcon.php');
                         </p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5">
+        <h3 class="text-danger mb-5 text-center font-weight-bold" id="about">About Us</h3>
+        <div class="row">
+            <div class="col-md-7">
+                <img src="./images/about-college.jpg" alt="About College" width="100%" height="100%">
+            </div>
+            <div class="col-md-5">
+                <p>The Institute T.M.A.E'S Polytechnic which is dedicated to the achievement
+                    of excellence in the technical field was established in the year 1983.
+                    The institution is situated in a lush green campus which is spread over
+                    an area of 5 acres on the out skirts of Hospet in Karnataka state.</p>
+                <p class="font-weight-bold">Vision</p>
+                <p>“Empowering youth by imparting quality technical education and strive to
+                    prepare students with excellent technical skills"</p>
+                <p class="font-weight-bold">Mission</p>
+                <ul class="style-none">
+                    <li>To offer value added quality technical education &
+                        excellent academic training to our students.</li>
+                    <li>To provide state of art infrastructure with latest facilities.</li>
+                    <li>To strengthen industry institute interaction.</li>
+                    <li>To make continual improvement in all institutional activities.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5">
+        <h3 class="text-danger mb-5 text-center font-weight-bold" id="contact">Contact Us</h3>
+        <div class="row">
+            <div class="col-md-3">
+                <p class="text-success font-weight-bold">T.M.A.E.Society’s Polytechnic</p>
+                <p class="mt-0 mb-0">Ballari Road, Hosapete - 583 201.</p>
+                <p class="mt-0 mb-0">Ballari Dist, Karnataka, India</p>
+                <p class="text-danger mt-0 mb-0">info@tmaespolytechnichpt.com</p>
+                <p class="text-danger mt-0 mb-0">tmaespoly316@gmail.com</p>
+            </div>
+            <div class="col-md-9">
+                <iframe style="border: 1px solid #e4e4e4; padding: 4px; background: #fff;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3849.1091511419245!2d76.39841481438579!3d15.261842264622096!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bb9d6848890f269%3A0xec569f9deb6420b6!2sT.M.A.E.S+Diploma+Polytechnic+College!5e0!3m2!1sen!2sin!4v1508153383152" width="95%" height="300px" frameborder="0" allowfullscreen=""></iframe>
             </div>
         </div>
     </div>
