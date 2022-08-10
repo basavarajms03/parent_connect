@@ -20,13 +20,13 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="../index.php">Home </a>
                 </li><li class="nav-item">
-                    <a class="nav-link" href="../departments/index.php">Department Login</a>
+                    <a class="nav-link" href="../departments/index.php">Admin Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../faculty/index.php">Faculty Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../parents/index.php">Parent Login</a>
+                    <a class="nav-link" href="../parents/index.php">Student/Parent Login</a>
                 </li>
             </ul>
         </div>

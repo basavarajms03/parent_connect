@@ -43,7 +43,7 @@ $department_count = mysqli_num_rows($result);
                     <thead>
                         <tr class="bg-danger text-light">
                             <th scope="col">#</th>
-                            <th scope="col">Department Id</th>
+                            <th scope="col">Admin Id</th>
                             <th scope="col">Department Name</th>
                             <th scope="col">Edit</th>
                             <th scope="col">Delete</th>

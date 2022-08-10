@@ -29,8 +29,8 @@ $row = mysqli_fetch_array($result);
             <div class="row mt-3">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="departmentId">Department Id</label>
-                        <input type="text" class="form-control" name="departmentId" value="<?php echo $row[1]; ?>" id="departmentId" placeholder="Enter Department Id" required>
+                        <label for="departmentId">Admin Id</label>
+                        <input type="text" class="form-control" name="departmentId" value="<?php echo $row[1]; ?>" id="departmentId" placeholder="Enter Admin Id" required>
                     </div>
                 </div>
                 <div class="col-md-6">

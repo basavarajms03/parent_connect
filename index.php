@@ -47,7 +47,7 @@ include('./db/dbcon.php');
                     <a class="nav-link" href="#about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="./departments/index.php">Department Login</a>
+                    <a class="nav-link" href="./departments/index.php">Admin Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="./faculty/">Faculty Login</a>

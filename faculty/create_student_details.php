@@ -443,7 +443,8 @@ function sendSms($info)
         $data = array(
             'From' => "+19704144821",
             'To' => $info['mobileNumber'],
-            'Body' => $info['nameInfo'] . "
+            'Body' => "TMAES Polytechnic Hospet\n"
+            .$info['nameInfo'] . "
     Attendance Info - " . $info['marks_type'] . "
     Subject Name : " . $info['SubjectName'] . "
     Total Classes : " . $info['totalClasses'] . "
@@ -457,7 +458,7 @@ function sendSms($info)
         $data = array(
             'From' => "+19704144821",
             'To' => $info['mobileNumber'],
-            'Body' => "
+            'Body' => "TMAES Polytechnic Hospet\n
     Marks Details - " . $info['marks_type'] . "\n" .
                 $info['body'] . "\n
     Link : " . $info['link'] . "\n

@@ -26,11 +26,11 @@ include('../db/dbcon.php');
         <div class="col-md-4">
             <form action="" method="post" autocomplete="off">
                 <h3 class="font-weight-bold">
-                    <p class="text-center">Department Login</p>
+                    <p class="text-center">Admin Login</p>
                 </h3>
                 <div class="form-group">
-                    <label for="deptId">Department Id</label>
-                    <input type="text" class="form-control" name="deptId" id="deptId" aria-describedby="emailHelp" placeholder="Enter Department Id">
+                    <label for="deptId">Admin Id</label>
+                    <input type="text" class="form-control" name="deptId" id="deptId" aria-describedby="emailHelp" placeholder="Enter Admin Id">
                 </div>
                 <div class="form-group">
                     <label for="password">Password</label>
